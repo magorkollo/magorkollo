@@ -1,6 +1,4 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
-import './(main)/globals.css'
 import { ThemeProvider } from 'next-themes'
 import { LanguageProvider, Language } from '@/lib/language-context'
 
@@ -61,17 +59,7 @@ export async function generateMetadata({ params }: { params: { lang: string } })
   };
 }
 
-const geist = Geist({
-  variable: '--font-geist',
-  subsets: ['latin'],
-})
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-})
-
-export default function RootLayout({
+export default function Layout({
   children,
   params,
 }: Readonly<{
@@ -81,42 +69,36 @@ export default function RootLayout({
   const lang = params.lang as Language;
 
   return (
-    <html lang={lang} suppressHydrationWarning>
-      <body
-        className={`${geist.variable} ${geistMono.variable} bg-white tracking-tight antialiased dark:bg-zinc-950`}
-      >
-        <ThemeProvider
-          enableSystem={true}
-          attribute="class"
-          storageKey="theme"
-          defaultTheme="system"
-        >
-          <LanguageProvider>
-            <script
-              type="application/ld+json"
-              dangerouslySetInnerHTML={{
-                __html: JSON.stringify({
-                  '@context': 'https://schema.org',
-                  '@type': 'Person',
-                  name: 'Magor Köllő',
-                  url: BASE_URL,
-                  jobTitle: 'Software Engineer',
-                  sameAs: [
-                    'https://github.com/magorkollo',
-                    'https://www.linkedin.com/in/magorkollo',
-                  ],
-                  description: DESCRIPTIONS[lang] || DESCRIPTIONS.en,
-                }),
-              }}
-            />
-            <div className="flex min-h-screen w-full flex-col font-[family-name:var(--font-inter-tight)]">
-              <div className="relative mx-auto w-full max-w-screen-sm flex-1 px-4 pt-20">
-                {children}
-              </div>
-            </div>
-          </LanguageProvider>
-        </ThemeProvider>
-      </body>
-    </html>
+    <ThemeProvider
+      enableSystem={true}
+      attribute="class"
+      storageKey="theme"
+      defaultTheme="system"
+    >
+      <LanguageProvider>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Person',
+              name: 'Magor Köllő',
+              url: BASE_URL,
+              jobTitle: 'Software Engineer',
+              sameAs: [
+                'https://github.com/magorkollo',
+                'https://www.linkedin.com/in/magorkollo',
+              ],
+              description: DESCRIPTIONS[lang] || DESCRIPTIONS.en,
+            }),
+          }}
+        />
+        <div className="flex min-h-screen w-full flex-col font-[family-name:var(--font-inter-tight)]">
+          <div className="relative mx-auto w-full max-w-screen-sm flex-1 px-4 pt-20">
+            {children}
+          </div>
+        </div>
+      </LanguageProvider>
+    </ThemeProvider>
   )
 }
