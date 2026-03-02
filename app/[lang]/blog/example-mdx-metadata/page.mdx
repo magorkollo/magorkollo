@@ -1,0 +1,114 @@
+export async function generateMetadata({ params }) {
+  const { lang } = params;
+  const titles = {
+    en: "How to Export Metadata from MDX for Next.js SEO",
+    hu: "Metaadatok exportálása MDX-ből Next.js SEO-hoz",
+    ro: "Cum să exportați metadate din MDX pentru Next.js SEO"
+  };
+  const descriptions = {
+    en: "A guide on exporting metadata from MDX files to leverage Next.js SEO features.",
+    hu: "Útmutató a metaadatok MDX fájlokból történő exportálásához a Next.js SEO funkcióinak kihasználása érdekében.",
+    ro: "Un ghid despre exportul metadatelor din fișierele MDX pentru a utiliza funcțiile SEO Next.js."
+  };
+  return {
+    title: titles[lang] || titles.en,
+    description: descriptions[lang] || descriptions.en,
+  };
+}
+
+<En>
+# How to Export Metadata from MDX for Next.js SEO
+
+Next.js supports exporting a `metadata` object from your MDX files, which can be used to enhance SEO and social sharing features. This is especially useful for blog posts and documentation pages.
+
+## Example: Exporting Metadata
+
+You can export a `metadata` object at the top of your MDX file like this:
+
+```javascript
+export const metadata = {
+  title: 'How to Export Metadata from MDX for Next.js SEO',
+  description: 'A guide on exporting metadata from MDX files to leverage Next.js SEO features.',
+  authors: [{ name: 'Jane Doe', url: 'https://janedoe.com' }],
+  openGraph: {
+    images: [
+      'https://cdn.cosmos.so/example-image.jpg',
+    ],
+  },
+}
+```
+
+This metadata will be picked up by Next.js and can be used for SEO, Open Graph, and other meta tags.
+
+## Why Use Metadata in MDX?
+
+- **SEO**: Improve your page's search engine ranking with relevant titles and descriptions.
+- **Social Sharing**: Enhance how your content appears when shared on social media platforms.
+- **Consistency**: Keep your metadata close to your content for easier management.
+
+## Further Reading
+- [Next.js Documentation: Metadata](https://nextjs.org/docs/app/building-your-application/optimizing/metadata)
+- [MDX Documentation](https://mdxjs.com/)
+
+---
+
+_This post demonstrates how to export metadata from MDX files for use with Next.js SEO features, inspired by [leerob's site](https://github.com/leerob/site/blob/main/app/n/product-engineers/page.mdx)._
+</En>
+
+<Hu>
+# Metaadatok exportálása MDX-ből Next.js SEO-hoz
+
+A Next.js támogatja a `metadata` objektum exportálását az MDX fájlokból, amely felhasználható a SEO és a közösségi megosztási funkciók javítására. Ez különösen hasznos blogbejegyzések és dokumentációs oldalak esetében.
+
+## Példa: Metaadatok exportálása
+
+Exportálhat egy `metadata` objektumot az MDX fájl tetején a következőképpen:
+
+```javascript
+export const metadata = {
+  title: 'Metaadatok exportálása MDX-ből Next.js SEO-hoz',
+  description: 'Útmutató a metaadatok MDX fájlokból történő exportálásához a Next.js SEO funkcióinak kihasználása érdekében.',
+}
+```
+
+Ezt a metaadatot a Next.js felismeri, és felhasználható SEO-hoz, Open Graph-hoz és egyéb meta címkékhez.
+
+## Miért használjunk metaadatokat MDX-ben?
+
+- **SEO**: Javítsa oldala keresőmotoros helyezését releváns címekkel és leírásokkal.
+- **Közösségi megosztás**: Javítsa tartalma megjelenését a közösségi média platformokon történő megosztáskor.
+- **Konzisztencia**: Tartsa a metaadatokat a tartalom közelében a könnyebb kezelhetőség érdekében.
+
+## További olvasnivalók
+- [Next.js dokumentáció: Metaadatok](https://nextjs.org/docs/app/building-your-application/optimizing/metadata)
+- [MDX dokumentáció](https://mdxjs.com/)
+</Hu>
+
+<Ro>
+# Cum să exportați metadate din MDX pentru Next.js SEO
+
+Next.js permite exportul unui obiect `metadata` din fișierele tale MDX, care poate fi folosit pentru a îmbunătăți SEO și funcțiile de partajare socială. Acest lucru este util în special pentru postările de blog și paginile de documentație.
+
+## Exemplu: Exportul metadatelor
+
+Poți exporta un obiect `metadata` în partea de sus a fișierului tău MDX astfel:
+
+```javascript
+export const metadata = {
+  title: 'Cum să exportați metadate din MDX pentru Next.js SEO',
+  description: 'Un ghid despre exportul metadatelor din fișierele MDX pentru a utiliza funcțiile SEO Next.js.',
+}
+```
+
+Aceste metadate vor fi preluate de Next.js și pot fi utilizate pentru SEO, Open Graph și alte tag-uri meta.
+
+## De ce să folosești metadate în MDX?
+
+- **SEO**: Îmbunătățește clasarea paginii tale în motoarele de căutare cu titluri și descrieri relevante.
+- **Partajare socială**: Îmbunătățește modul în care conținutul tău apare atunci când este partajat pe platformele de social media.
+- **Consecvență**: Păstrează metadatele aproape de conținutul tău pentru o gestionare mai ușoară.
+
+## Lecturi suplimentare
+- [Documentație Next.js: Metadate](https://nextjs.org/docs/app/building-your-application/optimizing/metadata)
+- [Documentație MDX](https://mdxjs.com/)
+</Ro>
