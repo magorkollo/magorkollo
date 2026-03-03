@@ -14,8 +14,18 @@ import {
 
 export type AnimatedBackgroundProps = {
   children:
-    | ReactElement<{ 'data-id': string }>
-    | ReactElement<{ 'data-id': string }>[]
+    | ReactElement<{
+        'data-id': string
+        'data-checked'?: string
+        className?: string
+        children?: React.ReactNode
+      }>
+    | ReactElement<{
+        'data-id': string
+        'data-checked'?: string
+        className?: string
+        children?: React.ReactNode
+      }>[]
   defaultValue?: string
   onValueChange?: (newActiveId: string | null) => void
   className?: string
