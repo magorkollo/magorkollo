@@ -1,19 +1,19 @@
 export async function generateMetadata({ params }) {
-  const { lang } = params;
+  const { lang } = await params
   const titles = {
-    en: "How to Export Metadata from MDX for Next.js SEO",
-    hu: "Metaadatok exportálása MDX-ből Next.js SEO-hoz",
-    ro: "Cum să exportați metadate din MDX pentru Next.js SEO"
-  };
+    en: 'How to Export Metadata from MDX for Next.js SEO',
+    hu: 'Metaadatok exportálása MDX-ből Next.js SEO-hoz',
+    ro: 'Cum să exportați metadate din MDX pentru Next.js SEO',
+  }
   const descriptions = {
-    en: "A guide on exporting metadata from MDX files to leverage Next.js SEO features.",
-    hu: "Útmutató a metaadatok MDX fájlokból történő exportálásához a Next.js SEO funkcióinak kihasználása érdekében.",
-    ro: "Un ghid despre exportul metadatelor din fișierele MDX pentru a utiliza funcțiile SEO Next.js."
-  };
+    en: 'A guide on exporting metadata from MDX files to leverage Next.js SEO features.',
+    hu: 'Útmutató a metaadatok MDX fájlokból történő exportálásához a Next.js SEO funkcióinak kihasználása érdekében.',
+    ro: 'Un ghid despre exportul metadatelor din fișierele MDX pentru a utiliza funcțiile SEO Next.js.',
+  }
   return {
     title: titles[lang] || titles.en,
     description: descriptions[lang] || descriptions.en,
-  };
+  }
 }
 
 <En>
@@ -28,12 +28,11 @@ You can export a `metadata` object at the top of your MDX file like this:
 ```javascript
 export const metadata = {
   title: 'How to Export Metadata from MDX for Next.js SEO',
-  description: 'A guide on exporting metadata from MDX files to leverage Next.js SEO features.',
+  description:
+    'A guide on exporting metadata from MDX files to leverage Next.js SEO features.',
   authors: [{ name: 'Jane Doe', url: 'https://janedoe.com' }],
   openGraph: {
-    images: [
-      'https://cdn.cosmos.so/example-image.jpg',
-    ],
+    images: ['https://cdn.cosmos.so/example-image.jpg'],
   },
 }
 ```
@@ -47,12 +46,14 @@ This metadata will be picked up by Next.js and can be used for SEO, Open Graph, 
 - **Consistency**: Keep your metadata close to your content for easier management.
 
 ## Further Reading
+
 - [Next.js Documentation: Metadata](https://nextjs.org/docs/app/building-your-application/optimizing/metadata)
 - [MDX Documentation](https://mdxjs.com/)
 
 ---
 
 _This post demonstrates how to export metadata from MDX files for use with Next.js SEO features, inspired by [leerob's site](https://github.com/leerob/site/blob/main/app/n/product-engineers/page.mdx)._
+
 </En>
 
 <Hu>
@@ -67,7 +68,8 @@ Exportálhat egy `metadata` objektumot az MDX fájl tetején a következőképpe
 ```javascript
 export const metadata = {
   title: 'Metaadatok exportálása MDX-ből Next.js SEO-hoz',
-  description: 'Útmutató a metaadatok MDX fájlokból történő exportálásához a Next.js SEO funkcióinak kihasználása érdekében.',
+  description:
+    'Útmutató a metaadatok MDX fájlokból történő exportálásához a Next.js SEO funkcióinak kihasználása érdekében.',
 }
 ```
 
@@ -80,8 +82,10 @@ Ezt a metaadatot a Next.js felismeri, és felhasználható SEO-hoz, Open Graph-h
 - **Konzisztencia**: Tartsa a metaadatokat a tartalom közelében a könnyebb kezelhetőség érdekében.
 
 ## További olvasnivalók
+
 - [Next.js dokumentáció: Metaadatok](https://nextjs.org/docs/app/building-your-application/optimizing/metadata)
 - [MDX dokumentáció](https://mdxjs.com/)
+
 </Hu>
 
 <Ro>
@@ -96,7 +100,8 @@ Poți exporta un obiect `metadata` în partea de sus a fișierului tău MDX astf
 ```javascript
 export const metadata = {
   title: 'Cum să exportați metadate din MDX pentru Next.js SEO',
-  description: 'Un ghid despre exportul metadatelor din fișierele MDX pentru a utiliza funcțiile SEO Next.js.',
+  description:
+    'Un ghid despre exportul metadatelor din fișierele MDX pentru a utiliza funcțiile SEO Next.js.',
 }
 ```
 
@@ -109,6 +114,8 @@ Aceste metadate vor fi preluate de Next.js și pot fi utilizate pentru SEO, Open
 - **Consecvență**: Păstrează metadatele aproape de conținutul tău pentru o gestionare mai ușoară.
 
 ## Lecturi suplimentare
+
 - [Documentație Next.js: Metadate](https://nextjs.org/docs/app/building-your-application/optimizing/metadata)
 - [Documentație MDX](https://mdxjs.com/)
+
 </Ro>

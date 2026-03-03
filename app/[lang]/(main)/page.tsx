@@ -1,7 +1,6 @@
 'use client'
 import { motion } from 'motion/react'
 import { XIcon } from 'lucide-react'
-import { Spotlight } from '@/components/ui/spotlight'
 import { Magnetic } from '@/components/ui/magnetic'
 import { useState } from 'react'
 import {
@@ -13,13 +12,7 @@ import {
 } from '@/components/ui/morphing-dialog'
 import Link from 'next/link'
 import { AnimatedBackground } from '@/components/ui/animated-background'
-import {
-  PROJECTS,
-  BLOG_POSTS,
-  SUMMARY,
-  EMAIL,
-  SOCIAL_LINKS,
-} from './data'
+import { PROJECTS, BLOG_POSTS, SUMMARY, EMAIL, SOCIAL_LINKS } from './data'
 import { useLanguage } from '@/lib/language-context'
 
 const VARIANTS_CONTAINER = {
@@ -137,9 +130,24 @@ export default function Personal() {
 
   const t = {
     blog: language === 'en' ? 'Blog' : language === 'hu' ? 'Blog' : 'Blog',
-    projects: language === 'en' ? 'Selected Projects' : language === 'hu' ? 'Válogatott projektek' : 'Proiecte selectate',
-    connect: language === 'en' ? 'Connect' : language === 'hu' ? 'Kapcsolat' : 'Contact',
-    contactMe: language === 'en' ? 'Feel free to contact me at' : language === 'hu' ? 'Bátran keress meg az alábbi címen:' : 'Nu ezita să mă contactezi la',
+    projects:
+      language === 'en'
+        ? 'Selected Projects'
+        : language === 'hu'
+          ? 'Válogatott projektek'
+          : 'Proiecte selectate',
+    connect:
+      language === 'en'
+        ? 'Connect'
+        : language === 'hu'
+          ? 'Kapcsolat'
+          : 'Contact',
+    contactMe:
+      language === 'en'
+        ? 'Feel free to contact me at'
+        : language === 'hu'
+          ? 'Bátran keress meg az alábbi címen:'
+          : 'Nu ezita să mă contactezi la',
   }
 
   return (
@@ -179,14 +187,18 @@ export default function Personal() {
                 data-id={post.uid}
               >
                 <div className="flex flex-col space-y-1">
-                  <h4 className="font-normal dark:text-zinc-100">{post.title[language]}</h4>
-                  <p className="text-zinc-500 dark:text-zinc-400">{post.description[language]}</p>
+                  <h4 className="font-normal dark:text-zinc-100">
+                    {post.title[language]}
+                  </h4>
+                  <p className="text-zinc-500 dark:text-zinc-400">
+                    {post.description[language]}
+                  </p>
                 </div>
               </Link>
             ))}
           </AnimatedBackground>
         </div>
-      
+
         <div className="mt-4 flex justify-center space-x-2">
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
             <button
@@ -222,7 +234,7 @@ export default function Personal() {
                   target="_blank"
                 >
                   {project.name}
-                  <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
+                  <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 transition-all duration-200 group-hover:max-w-full dark:bg-zinc-50"></span>
                 </a>
                 <p className="text-base text-zinc-600 dark:text-zinc-400">
                   {project.description[language]}

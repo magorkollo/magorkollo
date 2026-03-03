@@ -1,19 +1,19 @@
 export async function generateMetadata({ params }) {
-  const { lang } = params;
+  const { lang } = params
   const titles = {
     en: 'Exploring the Intersection of Design, AI, and Design Engineering',
     hu: 'A dizájn, az MI és a dizájn-mérnökség metszéspontjának felfedezése',
     ro: 'Explorarea intersecției dintre design, AI și ingineria designului',
-  };
+  }
   const descriptions = {
     en: 'Design and artificial intelligence (AI) are increasingly intertwined, driving innovation across industries. As technology evolves, the role of design engineering is more critical than ever, bridging creativity and functionality.',
     hu: 'A dizájn és a mesterséges intelligencia (MI) egyre inkább összefonódik, ami innovációt hajt végre az iparágakban. Ahogy a technológia fejlődik, a dizájn-mérnökség szerepe kritikusabb, mint valaha, áthidalva a kreativitást és a funkcionalitást.',
     ro: 'Designul și inteligența artificială (AI) sunt din ce în ce mai interconectate, stimulând inovația în toate industriile. Pe măsură ce tehnologia evoluează, rolul ingineriei designului este mai critic ca niciodată, realizând puntea dintre creativitate și funcționalitate.',
-  };
+  }
   return {
     title: titles[lang] || titles.en,
     description: descriptions[lang] || descriptions.en,
-  };
+  }
 }
 
 <En>
@@ -118,6 +118,7 @@ The intersection of AI, design, and design engineering is reshaping the industry
 ### Music for Inspiration
 
 Listening to music while working? Check out _"Motion"_ by Tycho—a perfect blend of creativity and rhythm.
+
 </En>
 
 <Hu>
@@ -142,6 +143,7 @@ Az MI már nem csak egy háttéreszköz – aktív együttműködővé válik a 
 - **Automatizálás**: Az olyan ismétlődő feladatok, mint az eszközök átméretezése vagy az elrendezések formázása, automatizálhatók, felszabadítva a tervezőket a stratégiaibb munkára.
 
 [... magyar nyelvű tartalom folytatása ...]
+
 </Hu>
 
 <Ro>
@@ -166,4 +168,5 @@ AI nu mai este doar un instrument de backend—devine un colaborator activ în p
 - **Automatizare**: Sarcinile repetitive precum redimensionarea activelor sau formatarea machetelor pot fi automatizate, eliberând designerii pentru o muncă mai strategică.
 
 [... continuare în limba română ...]
+
 </Ro>

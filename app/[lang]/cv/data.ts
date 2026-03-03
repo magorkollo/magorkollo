@@ -186,7 +186,11 @@ export const ADDITIONAL_INFO: AdditionalInfo[] = [
         hu: 'CAD ismeretek (Tervezés és 3D nyomtatás)',
         ro: 'Cunoștințe CAD (Design și imprimare 3D)',
       },
-      { en: 'Computer Vision', hu: 'Számítógépes látás', ro: 'Computer Vision' },
+      {
+        en: 'Computer Vision',
+        hu: 'Számítógépes látás',
+        ro: 'Computer Vision',
+      },
       { en: 'Machine Learning', hu: 'Gépi tanulás', ro: 'Machine Learning' },
     ],
     id: 'info1',

@@ -68,12 +68,42 @@ export default function CV() {
   const { language } = useLanguage()
 
   const t = {
-    summary: language === 'en' ? 'Summary' : language === 'hu' ? 'Összegzés' : 'Rezumat',
-    work: language === 'en' ? 'Work Experience' : language === 'hu' ? 'Munkatapasztalat' : 'Experiență profesională',
-    education: language === 'en' ? 'Education' : language === 'hu' ? 'Tanulmányok' : 'Educație',
-    additional: language === 'en' ? 'Additional Information' : language === 'hu' ? 'További információk' : 'Informații adiționale',
-    connect: language === 'en' ? 'Connect' : language === 'hu' ? 'Kapcsolat' : 'Contact',
-    contactMe: language === 'en' ? 'Feel free to contact me at' : language === 'hu' ? 'Bátran keress meg az alábbi címen:' : 'Nu ezita să mă contactezi la',
+    summary:
+      language === 'en'
+        ? 'Summary'
+        : language === 'hu'
+          ? 'Összegzés'
+          : 'Rezumat',
+    work:
+      language === 'en'
+        ? 'Work Experience'
+        : language === 'hu'
+          ? 'Munkatapasztalat'
+          : 'Experiență profesională',
+    education:
+      language === 'en'
+        ? 'Education'
+        : language === 'hu'
+          ? 'Tanulmányok'
+          : 'Educație',
+    additional:
+      language === 'en'
+        ? 'Additional Information'
+        : language === 'hu'
+          ? 'További információk'
+          : 'Informații adiționale',
+    connect:
+      language === 'en'
+        ? 'Connect'
+        : language === 'hu'
+          ? 'Kapcsolat'
+          : 'Contact',
+    contactMe:
+      language === 'en'
+        ? 'Feel free to contact me at'
+        : language === 'hu'
+          ? 'Bátran keress meg az alábbi címen:'
+          : 'Nu ezita să mă contactezi la',
   }
 
   return (
@@ -110,7 +140,9 @@ export default function CV() {
                   <h4 className="font-bold text-zinc-900 dark:text-zinc-100">
                     {job.title[language]}
                   </h4>
-                  <p className="text-zinc-600 dark:text-zinc-400">{job.company}</p>
+                  <p className="text-zinc-600 dark:text-zinc-400">
+                    {job.company}
+                  </p>
                 </div>
                 <span className="text-sm text-zinc-500 dark:text-zinc-500">
                   {job.start} — {job.end}
@@ -139,14 +171,16 @@ export default function CV() {
                   <h4 className="font-bold text-zinc-900 dark:text-zinc-100">
                     {edu.degree[language]}
                   </h4>
-                  <p className="text-zinc-600 dark:text-zinc-400">{edu.institution}</p>
+                  <p className="text-zinc-600 dark:text-zinc-400">
+                    {edu.institution}
+                  </p>
                 </div>
                 <span className="text-sm text-zinc-500 dark:text-zinc-500">
                   {edu.start} — {edu.end}
                 </span>
               </div>
               {edu.description && (
-                <p className="text-sm text-zinc-600 dark:text-zinc-400 italic">
+                <p className="text-sm text-zinc-600 italic dark:text-zinc-400">
                   {edu.description[language]}
                 </p>
               )}

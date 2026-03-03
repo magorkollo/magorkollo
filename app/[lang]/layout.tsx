@@ -15,58 +15,69 @@ export const viewport: Viewport = {
 const DESCRIPTIONS = {
   en: 'Software Engineer specializing in performance-critical systems, AI, and drone technology.',
   hu: 'Szoftvermérnök, szakterülete a teljesítmény-kritikus rendszerek, az MI és a dróntechnológia.',
-  ro: 'Inginer software specializat în sisteme critice pentru performanță, AI și tehnologia dronelor.'
-};
+  ro: 'Inginer software specializat în sisteme critice pentru performanță, AI și tehnologia dronelor.',
+}
 
-const SITE_NAME = 'Magor Köllő';
-const BASE_URL = 'https://nim-fawn.vercel.app';
+const SITE_NAME = 'Magor Köllő'
+const BASE_URL = 'https://nim-fawn.vercel.app'
 
-export async function generateMetadata({ params }: { params: { lang: string } }): Promise<Metadata> {
-  const lang = params.lang as Language;
-  
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>
+}): Promise<Metadata> {
+  const { lang } = await params
+  const currentLang = lang as Language
+
   return {
     metadataBase: new URL(BASE_URL),
     title: {
       default: SITE_NAME,
-      template: `%s | ${SITE_NAME}`
+      template: `%s | ${SITE_NAME}`,
     },
-    description: DESCRIPTIONS[lang] || DESCRIPTIONS.en,
+    description: DESCRIPTIONS[currentLang] || DESCRIPTIONS.en,
     alternates: {
-      canonical: `/${lang}`,
+      canonical: `/${currentLang}`,
       languages: {
-        'en': '/en',
-        'hu': '/hu',
-        'ro': '/ro',
+        en: '/en',
+        hu: '/hu',
+        ro: '/ro',
       },
     },
     openGraph: {
       title: SITE_NAME,
-      description: DESCRIPTIONS[lang] || DESCRIPTIONS.en,
-      url: `${BASE_URL}/${lang}`,
+      description: DESCRIPTIONS[currentLang] || DESCRIPTIONS.en,
+      url: `${BASE_URL}/${currentLang}`,
       siteName: SITE_NAME,
-      locale: lang === 'hu' ? 'hu_HU' : lang === 'ro' ? 'ro_RO' : 'en_US',
+      locale:
+        currentLang === 'hu'
+          ? 'hu_HU'
+          : currentLang === 'ro'
+            ? 'ro_RO'
+            : 'en_US',
       type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
       title: SITE_NAME,
-      description: DESCRIPTIONS[lang] || DESCRIPTIONS.en,
+      description: DESCRIPTIONS[currentLang] || DESCRIPTIONS.en,
     },
     robots: {
       index: true,
       follow: true,
-    }
-  };
+    },
+  }
 }
 
-export default function Layout({
+export default async function Layout({
   children,
   params,
 }: Readonly<{
   children: React.ReactNode
-  params: { lang: string }
+  params: Promise<{ lang: string }>
 }>) {
-  const lang = params.lang as Language;
+  const { lang } = await params
+  const currentLang = lang as Language
 
   return (
     <ThemeProvider
@@ -89,7 +100,7 @@ export default function Layout({
                 'https://github.com/magorkollo',
                 'https://www.linkedin.com/in/magorkollo',
               ],
-              description: DESCRIPTIONS[lang] || DESCRIPTIONS.en,
+              description: DESCRIPTIONS[currentLang] || DESCRIPTIONS.en,
             }),
           }}
         />

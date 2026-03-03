@@ -10,25 +10,27 @@ interface LanguageContextType {
   setLanguage: (lang: Language) => void
 }
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
+const LanguageContext = createContext<LanguageContextType | undefined>(
+  undefined,
+)
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const params = useParams()
   const router = useRouter()
   const pathname = usePathname()
-  
+
   // The 'lang' param comes from the dynamic route segment [lang]
   const language = (params.lang as Language) || 'en'
 
   const handleSetLanguage = (lang: Language) => {
     if (lang === language) return
-    
+
     // Replace the current language segment in the pathname
     // Pathname starts with /en, /hu, or /ro
     const segments = pathname.split('/')
     segments[1] = lang
     const newPathname = segments.join('/')
-    
+
     router.push(newPathname)
   }
 
@@ -40,7 +42,9 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }, [params.lang, pathname, router])
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage: handleSetLanguage }}>
+    <LanguageContext.Provider
+      value={{ language, setLanguage: handleSetLanguage }}
+    >
       {children}
     </LanguageContext.Provider>
   )

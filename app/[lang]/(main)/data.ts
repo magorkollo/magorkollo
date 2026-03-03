@@ -33,7 +33,8 @@ export const PROJECTS: Project[] = [
       ro: 'Componente și șabloane avansate pentru a crea site-uri web frumoase.',
     },
     link: 'https://pro.motion-primitives.com/',
-    video: 'https://drive.google.com/uc?export=preview&id=1CexcLrVMJgP3kb-PRak1TdEPqgljzQjW',
+    video:
+      'https://drive.google.com/uc?export=preview&id=1CexcLrVMJgP3kb-PRak1TdEPqgljzQjW',
     id: 'project1',
   },
   {
@@ -44,7 +45,8 @@ export const PROJECTS: Project[] = [
       ro: 'Kit UI pentru a crea interfețe frumoase și animate.',
     },
     link: 'https://motion-primitives.com/',
-    video: 'https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/W2azTw5BVbMXfj7F53G92hMVIn32/XSfIvT7BUWbPRXhrbLed/ee6871c9-8400-49d2-8be9-e32675eabf7e.mp4?_a=DATAdtAAZAA0',
+    video:
+      'https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/W2azTw5BVbMXfj7F53G92hMVIn32/XSfIvT7BUWbPRXhrbLed/ee6871c9-8400-49d2-8be9-e32675eabf7e.mp4?_a=DATAdtAAZAA0',
     id: 'project2',
   },
 ]

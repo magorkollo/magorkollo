@@ -1,7 +1,7 @@
 'use client'
 import { AnimatedBackground } from '@/components/ui/animated-background'
 import { TextLoop } from '@/components/ui/text-loop'
-import { MonitorIcon, MoonIcon, SunIcon, GlobeIcon } from 'lucide-react'
+import { MonitorIcon, MoonIcon, SunIcon } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { useLanguage, Language } from '@/lib/language-context'
@@ -104,7 +104,7 @@ function LanguageSwitch() {
           return (
             <button
               key={lang.id}
-              className="inline-flex h-7 px-2 items-center justify-center text-[10px] font-medium uppercase text-zinc-500 transition-colors duration-100 focus-visible:outline-2 data-[checked=true]:text-zinc-950 dark:text-zinc-400 dark:data-[checked=true]:text-zinc-50"
+              className="inline-flex h-7 items-center justify-center px-2 text-[10px] font-medium text-zinc-500 uppercase transition-colors duration-100 focus-visible:outline-2 data-[checked=true]:text-zinc-950 dark:text-zinc-400 dark:data-[checked=true]:text-zinc-50"
               type="button"
               aria-label={`Switch to ${lang.label} language`}
               data-id={lang.id}
@@ -124,7 +124,7 @@ export function Footer() {
       <div className="flex items-center justify-between">
         <a href="https://github.com/ibelick/nim" target="_blank">
           <TextLoop className="text-xs text-zinc-500">
-            <span>Don't Stop Believin'</span>
+            <span>Don&apos;t Stop Believin&apos;</span>
             <span>magorkollo</span>
           </TextLoop>
         </a>

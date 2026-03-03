@@ -9,7 +9,12 @@ export function BlogHeader() {
   const { language } = useLanguage()
 
   const t = {
-    role: language === 'en' ? 'Software Engineer' : language === 'hu' ? 'Szoftvermérnök' : 'Inginer Software',
+    role:
+      language === 'en'
+        ? 'Software Engineer'
+        : language === 'hu'
+          ? 'Szoftvermérnök'
+          : 'Inginer Software',
     home: language === 'en' ? 'Home' : language === 'hu' ? 'Kezdőlap' : 'Acasă',
   }
 
@@ -22,7 +27,7 @@ export function BlogHeader() {
             alt="Magor Köllő"
             width={64}
             height={64}
-            className="object-cover h-full w-full"
+            className="h-full w-full object-cover"
           />
         </div>
 
@@ -48,7 +53,7 @@ export function BlogHeader() {
       <div className="ml-auto">
         <Link
           href={`/${language}`}
-          className="text-sm text-zinc-600 hover:text-black dark:text-zinc-400 dark:hover:text-white transition-colors"
+          className="text-sm text-zinc-600 transition-colors hover:text-black dark:text-zinc-400 dark:hover:text-white"
         >
           &rarr; {t.home}
         </Link>

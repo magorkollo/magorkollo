@@ -26,10 +26,16 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       const codeHTML = highlight(children as string)
       return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
     },
-    ImageGrid: ({ children, columns = 2 }: { children: React.ReactNode, columns?: number }) => {
+    ImageGrid: ({
+      children,
+      columns = 2,
+    }: {
+      children: React.ReactNode
+      columns?: number
+    }) => {
       return (
-        <div 
-          className="grid gap-4 my-8" 
+        <div
+          className="my-8 grid gap-4"
           style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
         >
           {children}
