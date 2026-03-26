@@ -8,7 +8,11 @@ import { BlurryGradientBackground } from '@/components/ui/blurry-gradient-backgr
 import { InteractiveBackground } from '@/components/ui/interactive-background'
 import { ScrollProgress } from '@/components/ui/scroll-progress'
 
-export function PageTransitionWrapper({ children }: { children: React.ReactNode }) {
+export function PageTransitionWrapper({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   const [isTransitioning, setIsTransitioning] = useState(true)
   const pathname = usePathname()
 
