@@ -11,17 +11,17 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends(
-    "next/core-web-vitals",
-    "next/typescript",
-    "plugin:prettier/recommended",
-    "plugin:mdx/recommended",
+    'next/core-web-vitals',
+    'next/typescript',
+    'plugin:prettier/recommended',
+    'plugin:mdx/recommended',
   ),
   {
-    files: ["**/*.mdx"],
+    files: ['**/*.mdx'],
     rules: {
-      "react/jsx-no-undef": "off",
+      'react/jsx-no-undef': 'off',
     },
   },
-];
+]
 
 export default eslintConfig

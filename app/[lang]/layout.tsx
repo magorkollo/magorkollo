@@ -81,10 +81,10 @@ export default async function Layout({
 
   return (
     <ThemeProvider
-      enableSystem={true}
+      enableSystem={false}
       attribute="class"
       storageKey="theme"
-      defaultTheme="system"
+      defaultTheme="dark"
     >
       <LanguageProvider>
         <script
