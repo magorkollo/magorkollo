@@ -38,12 +38,12 @@ export function PageTransitionWrapper({
 
       <motion.div
         key={pathname}
-        initial={{ opacity: 0, y: '100vh' }}
+        initial={{ opacity: 0, y: 20 }}
         animate={
-          !isTransitioning ? { opacity: 1, y: 0 } : { opacity: 0, y: '100vh' }
+          !isTransitioning ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
         }
         transition={{
-          duration: 2,
+          duration: 1.5,
           ease: [0.22, 1, 0.36, 1],
         }}
         className="relative z-10 flex flex-col"

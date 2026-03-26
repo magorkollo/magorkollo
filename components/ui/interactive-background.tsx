@@ -25,9 +25,18 @@ export function InteractiveBackground() {
       mouseY.set(event.clientY)
     }
 
+    const handleTouchMove = (event: TouchEvent) => {
+      if (event.touches[0]) {
+        mouseX.set(event.touches[0].clientX)
+        mouseY.set(event.touches[0].clientY)
+      }
+    }
+
     window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('touchmove', handleTouchMove)
     return () => {
       window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('touchmove', handleTouchMove)
     }
   }, [mouseX, mouseY])
 
