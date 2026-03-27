@@ -13,17 +13,24 @@ export function PageTransitionWrapper({
 }: {
   children: React.ReactNode
 }) {
-  const [isTransitioning, setIsTransitioning] = useState(true)
+  const [isInitialLoad, setIsInitialLoad] = useState(true)
   const pathname = usePathname()
 
   useEffect(() => {
+    if (isInitialLoad) {
+      // Ensure we reveal content even if something hangs
+      const timer = setTimeout(() => {
+        setIsInitialLoad(false)
+      }, 500)
+      return () => clearTimeout(timer)
+    }
+
     window.scrollTo(0, 0)
-    setIsTransitioning(true)
     const timer = setTimeout(() => {
-      setIsTransitioning(false)
-    }, 1200) // Slightly shorter than the mountain exit to start content animation earlier
+      // No-op for now, but keeps the structure if we want to add back transition states
+    }, 1000)
     return () => clearTimeout(timer)
-  }, [pathname])
+  }, [pathname, isInitialLoad])
 
   return (
     <div className="relative min-h-screen selection:bg-emerald-100 dark:selection:bg-emerald-900/30">
@@ -31,19 +38,17 @@ export function PageTransitionWrapper({
       <InteractiveBackground />
 
       <AnimatePresence>
-        {isTransitioning && <MountainEntrance key="entrance" />}
+        {isInitialLoad && <MountainEntrance key="entrance" />}
       </AnimatePresence>
 
       <ScrollProgress className="fixed top-0 z-50 bg-zinc-950 dark:bg-white" />
 
       <motion.div
         key={pathname}
-        initial={{ opacity: 0, y: 20 }}
-        animate={
-          !isTransitioning ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
-        }
+        initial={isInitialLoad ? { opacity: 0 } : { opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{
-          duration: 1.5,
+          duration: 0.8,
           ease: [0.22, 1, 0.36, 1],
         }}
         className="relative z-10 flex flex-col"

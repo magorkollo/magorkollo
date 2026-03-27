@@ -33,7 +33,7 @@ export function MountainEntrance() {
         initial={{ y: 120, opacity: 0 }}
         animate={{ y: 0, opacity: 0.4 }}
         transition={{ duration: 1.4, delay: 0.2, ease: 'easeOut' }}
-        className="absolute bottom-0 left-0 w-full fill-purple-300 dark:fill-purple-900/40"
+        className="absolute bottom-0 left-0 hidden w-full fill-purple-300 md:block dark:fill-purple-900/40"
       >
         <path d="M0 200 L100 80 L200 150 L350 30 L500 120 L650 10 L800 200 Z" />
       </motion.svg>
@@ -44,7 +44,7 @@ export function MountainEntrance() {
         initial={{ y: 140, opacity: 0 }}
         animate={{ y: 0, opacity: 0.7 }}
         transition={{ duration: 1.2, delay: 0.4, ease: 'easeOut' }}
-        className="absolute bottom-0 left-0 w-full fill-blue-500/60 dark:fill-blue-800/50"
+        className="absolute bottom-0 left-0 hidden w-full fill-blue-500/60 md:block dark:fill-blue-800/50"
       >
         <path d="M-50 200 L120 100 L280 180 L450 60 L620 150 L850 200 Z" />
       </motion.svg>

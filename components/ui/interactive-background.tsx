@@ -47,15 +47,24 @@ export function InteractiveBackground() {
   const transformX3 = useTransform(mouseX, [0, windowSize.width], [-30, 30])
   const transformY3 = useTransform(mouseY, [0, windowSize.height], [-30, 30])
 
+  // Disable interactive transforms on small screens to save CPU
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+  const x1 = isMobile ? 0 : transformX1
+  const y1 = isMobile ? 0 : transformY1
+  const x2 = isMobile ? 0 : transformX2
+  const y2 = isMobile ? 0 : transformY2
+  const x3 = isMobile ? 0 : transformX3
+  const y3 = isMobile ? 0 : transformY3
+
   return (
     <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)]"></div>
       <motion.div
         className="absolute top-[-10%] left-[-10%] h-[40%] w-[40%]"
-        style={{ x: transformX1, y: transformY1 }}
+        style={{ x: x1, y: y1 }}
       >
         <motion.div
-          className="h-full w-full rounded-full bg-purple-500/20 blur-[120px] dark:bg-purple-500/30"
+          className="h-full w-full rounded-full bg-purple-500/20 blur-[80px] md:blur-[120px] dark:bg-purple-500/30"
           animate={{
             x: ['-5%', '5%', '-5%'],
             y: ['-5%', '5%', '-5%'],
@@ -70,10 +79,10 @@ export function InteractiveBackground() {
       </motion.div>
       <motion.div
         className="absolute top-[20%] right-[-5%] h-[35%] w-[35%]"
-        style={{ x: transformX2, y: transformY2 }}
+        style={{ x: x2, y: y2 }}
       >
         <motion.div
-          className="h-full w-full rounded-full bg-blue-500/20 blur-[120px] dark:bg-blue-800/20"
+          className="h-full w-full rounded-full bg-blue-500/20 blur-[80px] md:blur-[120px] dark:bg-blue-800/20"
           animate={{
             x: ['-5%', '5%', '-5%'],
             y: ['-5%', '5%', '-5%'],
@@ -89,10 +98,10 @@ export function InteractiveBackground() {
       </motion.div>
       <motion.div
         className="absolute bottom-[-10%] left-[20%] h-[40%] w-[40%]"
-        style={{ x: transformX3, y: transformY3 }}
+        style={{ x: x3, y: y3 }}
       >
         <motion.div
-          className="h-full w-full rounded-full bg-emerald-500/20 blur-[120px] dark:bg-emerald-900/20"
+          className="h-full w-full rounded-full bg-emerald-500/20 blur-[80px] md:blur-[120px] dark:bg-emerald-900/20"
           animate={{
             x: ['-5%', '5%', '-5%'],
             y: ['-5%', '5%', '-5%'],

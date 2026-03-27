@@ -21,6 +21,8 @@ export function ScrollProgress({
   springOptions,
   containerRef,
 }: ScrollProgressProps) {
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+
   const { scrollYProgress } = useScroll({
     container: containerRef,
     layoutEffect: Boolean(containerRef?.current),
@@ -30,6 +32,8 @@ export function ScrollProgress({
     ...DEFAULT_SPRING_OPTIONS,
     ...(springOptions ?? {}),
   })
+
+  if (isMobile) return null
 
   return (
     <motion.div

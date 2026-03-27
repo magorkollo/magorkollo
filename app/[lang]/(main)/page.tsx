@@ -55,6 +55,8 @@ function ProjectVideo({ src }: ProjectVideoProps) {
           autoPlay
           loop
           muted
+          playsInline
+          preload="metadata"
           className="aspect-video w-full cursor-zoom-in rounded-xl transition-transform duration-300 hover:scale-[1.02]"
         />
       </MorphingDialogTrigger>
@@ -65,6 +67,7 @@ function ProjectVideo({ src }: ProjectVideoProps) {
             autoPlay
             loop
             muted
+            playsInline
             className="aspect-video h-[50vh] w-full rounded-xl md:h-[70vh]"
           />
         </MorphingDialogContent>
@@ -111,6 +114,8 @@ export default function Personal() {
   const [currentPage, setCurrentPage] = useState(1)
   const postsPerPage = 5
 
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+
   const indexOfLastPost = currentPage * postsPerPage
   const indexOfFirstPost = indexOfLastPost - postsPerPage
   const currentPosts = BLOG_POSTS.slice(indexOfFirstPost, indexOfLastPost)
@@ -142,7 +147,7 @@ export default function Personal() {
     <motion.main
       className="space-y-16"
       variants={VARIANTS_CONTAINER}
-      initial="hidden"
+      initial={isMobile ? 'visible' : 'hidden'}
       animate="visible"
     >
       <motion.section
@@ -151,14 +156,21 @@ export default function Personal() {
         className="relative"
       >
         <div className="flex-1">
-          <TextEffect
-            as="p"
-            preset="fade"
-            per="word"
-            className="text-lg leading-relaxed text-zinc-700 dark:text-zinc-300"
-          >
-            {SUMMARY[language]}
-          </TextEffect>
+          <div className="md:hidden">
+            <p className="text-lg leading-relaxed text-zinc-700 dark:text-zinc-300">
+              {SUMMARY[language]}
+            </p>
+          </div>
+          <div className="hidden md:block">
+            <TextEffect
+              as="p"
+              preset="fade"
+              per="word"
+              className="text-lg leading-relaxed text-zinc-700 dark:text-zinc-300"
+            >
+              {SUMMARY[language]}
+            </TextEffect>
+          </div>
         </div>
       </motion.section>
 
