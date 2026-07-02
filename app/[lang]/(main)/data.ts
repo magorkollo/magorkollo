@@ -1,52 +1,46 @@
-export type Content<T = string> = {
-  en: T
-  hu: T
-  ro: T
-}
+import type { Content, SocialLink } from '@/lib/data'
+export { SOCIAL_LINKS, EMAIL } from '@/lib/data'
+export type { Content, SocialLink }
 
-type Project = {
+export { SUMMARY } from '@/lib/data'
+
+export type Project = {
   name: string
   description: Content
   link: string
-  video: string
+  image: string
   id: string
 }
 
-type BlogPost = {
+export type BlogPost = {
   title: Content
   description: Content
   link: string
   uid: string
 }
 
-type SocialLink = {
-  label: string
-  link: string
-}
-
 export const PROJECTS: Project[] = [
   {
-    name: 'Motion Primitives Pro',
+    name: 'Autonomous Robot',
     description: {
-      en: 'Advanced components and templates to craft beautiful websites.',
-      hu: 'Fejlett komponensek és sablonok gyönyörű weboldalak készítéséhez.',
-      ro: 'Componente și șabloane avansate pentru a crea site-uri web frumoase.',
+      en: 'An autonomous mobile robot platform developed for navigation and mapping in complex environments.',
+      hu: 'Autonóm mobil robot platform, amelyet összetett környezetben való navigációra és térképezésre fejlesztettek ki.',
+      ro: 'O platformă robotizată mobilă autonomă dezvoltată pentru navigare și cartografiere în medii complexe.',
     },
-    link: 'https://pro.motion-primitives.com/',
-    video:
-      'https://drive.google.com/uc?export=preview&id=1CexcLrVMJgP3kb-PRak1TdEPqgljzQjW',
+    link: 'https://github.com/magorkollo/autonomous_robot',
+    image: '/waffle_parts.png',
     id: 'project1',
   },
   {
-    name: 'Motion Primitives',
+    name: 'SkillBoosters',
     description: {
-      en: 'UI kit to make beautiful, animated interfaces.',
-      hu: 'UI készlet gyönyörű, animált felületek készítéséhez.',
-      ro: 'Kit UI pentru a crea interfețe frumoase și animate.',
+      en: 'A comprehensive educational program designed to boost technical skills and foster innovation among young people.',
+      hu: 'Átfogó oktatási program, amelynek célja a technikai készségek fejlesztése és az innováció ösztönzése a fiatalok körében.',
+      ro: 'Un program educațional cuprinzător conceput pentru a spori abilitățile tehnice și a promova inovația în rândul tinerilor.',
     },
-    link: 'https://motion-primitives.com/',
-    video:
-      'https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/W2azTw5BVbMXfj7F53G92hMVIn32/XSfIvT7BUWbPRXhrbLed/ee6871c9-8400-49d2-8be9-e32675eabf7e.mp4?_a=DATAdtAAZAA0',
+    link: 'https://www.youthcenter.ro/en/skillboosters/details/',
+    image:
+      'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop',
     id: 'project2',
   },
 ]
@@ -80,7 +74,7 @@ export const BLOG_POSTS: BlogPost[] = [
     link: '/blog/example-mdx-metadata',
     uid: 'blog-4',
   },
-  ...Array.from({ length: 10 }, (_, i) => ({
+  ...Array.from({ length: 2 }, (_, i) => ({
     title: {
       en: `Lorem Ipsum Article ${i + 1}`,
       hu: `Lorem Ipsum cikk ${i + 1}`,
@@ -95,22 +89,3 @@ export const BLOG_POSTS: BlogPost[] = [
     uid: `lorem-${i + 1}`,
   })),
 ]
-
-export const SUMMARY: Content = {
-  en: 'Software Engineer with hands-on leadership experience in fast-paced, high-impact environments, including tech and nonprofit. I am currently working in high-frequency trading, focusing on performance-critical systems, but I have a strong interest in autonomous systems, AI and drone technology too. In my spare time, I lead a NGO involved in various youth-related projects, and I also teach the next generation for STEM. I constantly reflect on how I can help make the world a better place - and I try my best to bring some of those ideas into reality. Hence, beside building software, I also try to build communities and dreams.',
-  hu: 'Szoftvermérnök gyakorlati vezetői tapasztalattal pörgős, nagy hatású környezetekben, beleértve a technológiai és non-profit szektort. Jelenleg a nagyfrekvenciás kereskedésben dolgozom, a teljesítmény-kritikus rendszerekre összpontosítva, de élénken érdeklődöm az autonóm rendszerek, az MI és a dróntechnológia iránt is. Szabadidőmben egy különféle ifjúsági projektekkel foglalkozó civil szervezetet vezetek, és tanítom a következő generációt a STEM területeken. Folyamatosan azon gondolkodom, hogyan tehetném jobbá a világot - és igyekszem a legjobbamat nyújtani, hogy ezen ötletek egy részét megvalósítsam. Így a szoftverépítés mellett közösségeket és álmokat is építek.',
-  ro: 'Inginer software cu experiență practică de conducere în medii dinamice și cu impact ridicat, inclusiv în sectorul tehnologic și nonprofit. În prezent lucrez în tranzacționarea de înaltă frecvență, concentrându-mă pe sisteme critice pentru performanță, dar am un interes puternic și pentru sistemele autonome, AI și tehnologia dronelor. În timpul liber, conduc un ONG implicat în diverse proiecte pentru tineret și predau următoarei generații în domeniile STEM. Reflectez constant la modul în care pot ajuta la transformarea lumii într-un loc mai bun - și fac tot posibilul să transform unele dintre aceste idei în realitate. Prin urmare, pe lângă dezvoltarea de software, încerc să construiesc comunități și visuri.',
-}
-
-export const SOCIAL_LINKS: SocialLink[] = [
-  {
-    label: 'Github',
-    link: 'https://github.com/magorkollo',
-  },
-  {
-    label: 'LinkedIn',
-    link: 'https://www.linkedin.com/in/magorkollo',
-  },
-]
-
-export const EMAIL = 'magorors_kollo@yahoo.com'

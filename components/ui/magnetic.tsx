@@ -25,7 +25,8 @@ export function Magnetic({
   actionArea = 'self',
   springOptions = SPRING_CONFIG,
 }: MagneticProps) {
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+  const [isMobile, setIsMobile] = useState(true)
+  const [mounted, setMounted] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -36,7 +37,15 @@ export function Magnetic({
   const springY = useSpring(y, springOptions)
 
   useEffect(() => {
-    if (isMobile) return
+    setMounted(true)
+    setIsMobile(window.innerWidth < 768)
+    const handleResize = () => setIsMobile(window.innerWidth < 768)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  useEffect(() => {
+    if (!mounted || isMobile) return
 
     const calculateDistance = (e: MouseEvent) => {
       if (ref.current) {
@@ -64,9 +73,10 @@ export function Magnetic({
     return () => {
       document.removeEventListener('mousemove', calculateDistance)
     }
-  }, [ref, isHovered, intensity, range, x, y, isMobile])
+  }, [ref, isHovered, intensity, range, x, y, isMobile, mounted])
 
   useEffect(() => {
+    if (!mounted) return
     if (actionArea === 'parent' && ref.current?.parentElement) {
       const parent = ref.current.parentElement
 
@@ -83,7 +93,7 @@ export function Magnetic({
     } else if (actionArea === 'global') {
       setIsHovered(true)
     }
-  }, [actionArea])
+  }, [actionArea, mounted])
 
   const handleMouseEnter = () => {
     if (actionArea === 'self') {

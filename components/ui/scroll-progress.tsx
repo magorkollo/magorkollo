@@ -2,7 +2,7 @@
 
 import { motion, SpringOptions, useScroll, useSpring } from 'motion/react'
 import { cn } from '@/lib/utils'
-import { RefObject } from 'react'
+import { RefObject, useEffect, useState } from 'react'
 
 export type ScrollProgressProps = {
   className?: string
@@ -21,7 +21,16 @@ export function ScrollProgress({
   springOptions,
   containerRef,
 }: ScrollProgressProps) {
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+  const [isMobile, setIsMobile] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+    setIsMobile(window.innerWidth < 768)
+    const handleResize = () => setIsMobile(window.innerWidth < 768)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const { scrollYProgress } = useScroll({
     container: containerRef,
@@ -33,7 +42,7 @@ export function ScrollProgress({
     ...(springOptions ?? {}),
   })
 
-  if (isMobile) return null
+  if (!mounted || isMobile) return null
 
   return (
     <motion.div

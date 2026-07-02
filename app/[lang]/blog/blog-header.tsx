@@ -21,7 +21,7 @@ export function BlogHeader() {
   return (
     <header className="mb-8 flex items-center justify-between gap-4">
       <div className="flex items-center gap-4">
-        <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full border border-zinc-300 dark:border-zinc-700">
+        <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full border border-white/20 dark:border-zinc-700">
           <Image
             src="/profile.jpg"
             alt="Magor Köllő"
@@ -34,15 +34,20 @@ export function BlogHeader() {
         <div>
           <Link
             href={`/${language}/cv`}
-            className="block text-xl font-semibold text-black dark:text-white"
+            className="block text-xl font-semibold"
           >
-            Magor Köllő
+            <span
+              className="bg-gradient-to-r from-white via-teal-200 to-white bg-[length:200%_auto] bg-clip-text text-transparent"
+              style={{ animation: 'gradient-shift 4s ease-in-out infinite' }}
+            >
+              Magor Köllő
+            </span>
           </Link>
           <TextEffect
             as="p"
             preset="fade"
             per="char"
-            className="text-zinc-600 dark:text-zinc-500"
+            className="text-zinc-300 dark:text-zinc-500"
             delay={0.5}
           >
             {t.role}
@@ -53,7 +58,7 @@ export function BlogHeader() {
       <div className="ml-auto">
         <Link
           href={`/${language}`}
-          className="text-sm text-zinc-600 transition-colors hover:text-black dark:text-zinc-400 dark:hover:text-white"
+          className="text-sm text-zinc-300 transition-colors hover:text-white dark:text-zinc-400 dark:hover:text-white"
         >
           &rarr; {t.home}
         </Link>

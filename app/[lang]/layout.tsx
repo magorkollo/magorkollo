@@ -1,6 +1,17 @@
 import type { Metadata, Viewport } from 'next'
 import { ThemeProvider } from 'next-themes'
 import { LanguageProvider, Language } from '@/lib/language-context'
+import { Geist, Geist_Mono } from 'next/font/google'
+
+const geist = Geist({
+  variable: '--font-geist',
+  subsets: ['latin'],
+})
+
+const geistMono = Geist_Mono({
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
+})
 
 export async function generateStaticParams() {
   return [{ lang: 'en' }, { lang: 'hu' }, { lang: 'ro' }]
@@ -9,7 +20,7 @@ export async function generateStaticParams() {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#ffffff',
+  themeColor: '#355c70',
 }
 
 const DESCRIPTIONS = {
@@ -56,6 +67,14 @@ export async function generateMetadata({
             ? 'ro_RO'
             : 'en_US',
       type: 'website',
+      images: [
+        {
+          url: `${BASE_URL}/og-image.jpg`,
+          width: 1200,
+          height: 630,
+          alt: SITE_NAME,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
@@ -80,36 +99,42 @@ export default async function Layout({
   const currentLang = lang as Language
 
   return (
-    <ThemeProvider
-      enableSystem={false}
-      attribute="class"
-      storageKey="theme"
-      defaultTheme="dark"
-    >
-      <LanguageProvider>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'Person',
-              name: 'Magor Köllő',
-              url: BASE_URL,
-              jobTitle: 'Software Engineer',
-              sameAs: [
-                'https://github.com/magorkollo',
-                'https://www.linkedin.com/in/magorkollo',
-              ],
-              description: DESCRIPTIONS[currentLang] || DESCRIPTIONS.en,
-            }),
-          }}
-        />
-        <div className="flex min-h-screen w-full flex-col font-[family-name:var(--font-inter-tight)]">
-          <div className="relative mx-auto w-full max-w-screen-sm flex-1 px-4 pt-20">
-            {children}
-          </div>
-        </div>
-      </LanguageProvider>
-    </ThemeProvider>
+    <html lang={currentLang} suppressHydrationWarning>
+      <body
+        className={`${geist.variable} ${geistMono.variable} bg-[#355c70] tracking-tight text-zinc-50 antialiased dark:bg-zinc-950 dark:text-zinc-50`}
+      >
+        <ThemeProvider
+          enableSystem={false}
+          attribute="class"
+          storageKey="theme"
+          defaultTheme="dark"
+        >
+          <LanguageProvider>
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  '@context': 'https://schema.org',
+                  '@type': 'Person',
+                  name: 'Magor Köllő',
+                  url: BASE_URL,
+                  jobTitle: 'Software Engineer',
+                  sameAs: [
+                    'https://github.com/magorkollo',
+                    'https://www.linkedin.com/in/magorkollo',
+                  ],
+                  description: DESCRIPTIONS[currentLang] || DESCRIPTIONS.en,
+                }),
+              }}
+            />
+            <div className="flex min-h-screen w-full flex-col font-[family-name:var(--font-geist)]">
+              <div className="relative mx-auto w-full max-w-screen-sm flex-1 px-4 pt-20">
+                {children}
+              </div>
+            </div>
+          </LanguageProvider>
+        </ThemeProvider>
+      </body>
+    </html>
   )
 }

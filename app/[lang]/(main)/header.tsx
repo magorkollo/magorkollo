@@ -13,23 +13,23 @@ export function Header() {
     en: [
       'Software Engineer',
       'HFT Specialist',
-      'AI Enthusiast',
-      'Drone Pilot',
+      'AI Engineer',
       'NGO Leader',
+      'STEM Teacher',
     ],
     hu: [
       'Szoftvermérnök',
-      'HFT specialista',
-      'MI rajongó',
-      'Drónpilóta',
-      'Civil vezető',
+      'HFT szakember',
+      'AI specialista',
+      'Egyesület vezető',
+      'STEM Oktató',
     ],
     ro: [
       'Inginer Software',
       'Specialist HFT',
       'Entuziast AI',
-      'Pilot Dronă',
       'Lider ONG',
+      'Instructor STEM',
     ],
   }
 
@@ -41,7 +41,7 @@ export function Header() {
     <header className="mb-12 flex items-center justify-between gap-4">
       <div className="flex items-center gap-4">
         <Magnetic intensity={0.2} springOptions={{ bounce: 0.1 }}>
-          <div className="group relative h-16 w-16 shrink-0 cursor-pointer overflow-hidden rounded-full border border-zinc-300 transition-colors hover:border-zinc-400 dark:border-zinc-700 dark:hover:border-zinc-600">
+          <div className="group relative h-16 w-16 shrink-0 cursor-pointer overflow-hidden rounded-full border border-white/20 transition-colors hover:border-white/40 dark:border-zinc-700 dark:hover:border-zinc-600">
             <Image
               src="/profile.jpg"
               alt="Magor Köllő"
@@ -49,18 +49,23 @@ export function Header() {
               height={64}
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
             />
-            <div className="absolute inset-0 bg-black/5 transition-opacity group-hover:opacity-0 dark:bg-white/5" />
+            <div className="absolute inset-0 bg-white/5 transition-opacity group-hover:opacity-0 dark:bg-white/5" />
           </div>
         </Magnetic>
 
         <div>
           <Link
             href={`/${language}/cv`}
-            className="block text-xl font-semibold tracking-tight text-black dark:text-white"
+            className="block text-xl font-semibold tracking-tight"
           >
-            Magor Köllő
+            <span
+              className="bg-gradient-to-r from-white via-teal-200 to-white bg-[length:200%_auto] bg-clip-text text-transparent"
+              style={{ animation: 'gradient-shift 4s ease-in-out infinite' }}
+            >
+              Magor Köllő
+            </span>
           </Link>
-          <div className="flex items-center gap-1.5 text-zinc-600 dark:text-zinc-500">
+          <div className="flex items-center gap-1.5 text-zinc-300 dark:text-zinc-500">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
@@ -86,7 +91,7 @@ export function Header() {
         <Magnetic intensity={0.1}>
           <Link
             href={`/${language}/cv`}
-            className="group flex items-center gap-1 rounded-full bg-zinc-100 px-4 py-1.5 text-sm font-medium text-zinc-900 transition-all hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
+            className="group flex items-center gap-1 rounded-full bg-white/10 px-4 py-1.5 text-sm font-medium text-white transition-all hover:bg-white/20 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
           >
             <span className="transition-transform group-hover:-translate-x-0.5">
               &rarr;

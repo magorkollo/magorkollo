@@ -78,8 +78,8 @@ export type MorphingDialogProps = {
 
 function MorphingDialog({ children, transition }: MorphingDialogProps) {
   return (
-    <MorphingDialogProvider>
-      <MotionConfig transition={transition}>{children}</MotionConfig>
+    <MorphingDialogProvider transition={transition}>
+      {children}
     </MorphingDialogProvider>
   )
 }

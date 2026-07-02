@@ -8,64 +8,119 @@ export function MountainEntrance() {
       initial={{ opacity: 1, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ y: '-100vh' }}
-      transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-zinc-50 dark:bg-zinc-950"
+      transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-[#355c70] dark:bg-zinc-950"
     >
       {/* Settling Sun (Sunset) */}
       <motion.div
-        initial={{ y: 20, opacity: 0, scale: 0.8 }}
-        animate={{ y: -40, opacity: 1, scale: 1 }}
-        transition={{ duration: 1.5, ease: 'easeOut', delay: 0.2 }}
-        className="absolute top-1/2 left-1/2 h-32 w-32 -translate-x-1/2 rounded-full bg-gradient-to-b from-orange-400 to-red-500 shadow-[0_0_60px_rgba(251,146,60,0.4)] dark:from-orange-600 dark:to-red-900"
+        initial={{ y: 60, opacity: 0 }}
+        animate={{ y: -40, opacity: 1 }}
+        transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
+        className="absolute top-1/2 left-1/2 h-32 w-32 -translate-x-1/2 rounded-full bg-gradient-to-b from-rose-300 to-orange-400 shadow-[0_0_60px_rgba(245,158,11,0.3)] dark:from-rose-500 dark:to-orange-800"
       />
 
-      {/* Atmospheric Glow */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.6 }}
-        transition={{ duration: 1.5 }}
-        className="absolute top-1/2 left-1/2 h-64 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-orange-500/10 blur-[100px] dark:bg-orange-500/20"
-      />
-
-      {/* Layer 3: Farthest Peaks (Lavender/Violet) */}
+      {/* Layer 4: Farthest Peaks (Purple - #6f4bbd) */}
       <motion.svg
         viewBox="0 0 800 200"
-        initial={{ y: 120, opacity: 0 }}
-        animate={{ y: 0, opacity: 0.4 }}
-        transition={{ duration: 1.4, delay: 0.2, ease: 'easeOut' }}
-        className="absolute bottom-0 left-0 hidden w-full fill-purple-300 md:block dark:fill-purple-900/40"
+        initial={{ y: 80 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6, delay: 0, ease: 'easeOut' }}
+        className="absolute bottom-0 left-0 w-full"
+        preserveAspectRatio="none"
       >
-        <path d="M0 200 L100 80 L200 150 L350 30 L500 120 L650 10 L800 200 Z" />
+        <defs>
+          <linearGradient id="grad4-light" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#a78bfa" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="#6f4bbd" stopOpacity="0.7" />
+          </linearGradient>
+          <linearGradient id="grad4-dark" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#5b21b6" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#4c1d95" stopOpacity="0.5" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M0 200 L150 40 L300 160 L450 20 L600 140 L750 50 L800 200 Z"
+          className="fill-[url(#grad4-light)] dark:fill-[url(#grad4-dark)]"
+        />
       </motion.svg>
 
-      {/* Layer 2: Mid Peaks (Royal Blue) */}
+      {/* Layer 3: Mid-Back Peaks (Light Blue - #b0daeb) */}
       <motion.svg
         viewBox="0 0 800 200"
-        initial={{ y: 140, opacity: 0 }}
-        animate={{ y: 0, opacity: 0.7 }}
-        transition={{ duration: 1.2, delay: 0.4, ease: 'easeOut' }}
-        className="absolute bottom-0 left-0 hidden w-full fill-blue-500/60 md:block dark:fill-blue-800/50"
+        initial={{ y: 100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
+        className="absolute bottom-0 left-0 w-full"
+        preserveAspectRatio="none"
       >
-        <path d="M-50 200 L120 100 L280 180 L450 60 L620 150 L850 200 Z" />
+        <defs>
+          <linearGradient id="grad3-light" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#d1eefb" stopOpacity="0.6" />
+            <stop offset="100%" stopColor="#b0daeb" stopOpacity="0.8" />
+          </linearGradient>
+          <linearGradient id="grad3-dark" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#1e40af" stopOpacity="0.4" />
+            <stop offset="100%" stopColor="#1e3a8a" stopOpacity="0.6" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M0 200 L100 80 L200 150 L350 30 L500 120 L650 10 L800 200 Z"
+          className="fill-[url(#grad3-light)] dark:fill-[url(#grad3-dark)]"
+        />
       </motion.svg>
 
-      {/* Layer 1: Fore Peaks with Pine Trees (Emerald/Forest) */}
+      {/* Layer 2: Mid-Front Peaks (Indigo/Blue) */}
+      <motion.svg
+        viewBox="0 0 800 200"
+        initial={{ y: 120 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.4, delay: 0.2, ease: 'easeOut' }}
+        className="absolute bottom-0 left-0 w-full"
+        preserveAspectRatio="none"
+      >
+        <defs>
+          <linearGradient id="grad2-light" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#bfdbfe" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="#93c5fd" stopOpacity="0.9" />
+          </linearGradient>
+          <linearGradient id="grad2-dark" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#1d4ed8" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="#1e40af" stopOpacity="0.7" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M-50 200 L120 100 L280 180 L450 60 L620 150 L850 200 Z"
+          className="fill-[url(#grad2-light)] dark:fill-[url(#grad2-dark)]"
+        />
+      </motion.svg>
+
+      {/* Layer 1: Fore Peaks (Light Green - #8ce687) */}
       <motion.div
-        initial={{ y: 160, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1, delay: 0.6, ease: 'easeOut' }}
+        initial={{ y: 140 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.3, delay: 0.3, ease: 'easeOut' }}
         className="absolute bottom-0 left-0 h-[300px] w-full"
       >
         <svg
           viewBox="0 0 800 200"
-          className="h-full w-full fill-emerald-600 dark:fill-emerald-500/80"
+          className="h-full w-full"
           preserveAspectRatio="none"
         >
-          {/* Ground Peaks (Corrected path to be visually lower) */}
-          <path d="M-100 200 L80 130 L250 190 L420 110 L600 170 L900 200 Z" />
-
-          {/* Pine Silhouettes */}
-          <g className="fill-emerald-800/40 dark:fill-emerald-300/20">
+          <defs>
+            <linearGradient id="grad1-light" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#bbf7b9" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="#8ce687" stopOpacity="1" />
+            </linearGradient>
+            <linearGradient id="grad1-dark" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#15803d" stopOpacity="0.6" />
+              <stop offset="100%" stopColor="#166534" stopOpacity="0.8" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M-100 200 L80 130 L250 190 L420 110 L600 170 L900 200 Z"
+            className="fill-[url(#grad1-light)] dark:fill-[url(#grad1-dark)]"
+          />
+          <g className="fill-white/20 dark:fill-black/20">
             <path d="M70 135 L80 115 L90 135 Z" />
             <path d="M55 145 L65 125 L75 145 Z" />
             <path d="M95 130 L105 110 L115 130 Z" />
@@ -78,14 +133,6 @@ export function MountainEntrance() {
           </g>
         </svg>
       </motion.div>
-
-      {/* Deep Ground Shadow */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.8 }}
-        className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-zinc-50 via-zinc-50/80 to-transparent dark:from-zinc-950 dark:via-zinc-950/80"
-      />
     </motion.div>
   )
 }

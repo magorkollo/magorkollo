@@ -1,5 +1,11 @@
+export async function generateStaticParams() {
+  return [
+    { slug: 'exploring-the-intersection-of-design-ai-and-design-engineering' },
+  ]
+}
+
 export async function generateMetadata({ params }) {
-  const { lang } = params
+  const { lang } = await params
   const titles = {
     en: 'Exploring the Intersection of Design, AI, and Design Engineering',
     hu: 'A dizájn, az MI és a dizájn-mérnökség metszéspontjának felfedezése',

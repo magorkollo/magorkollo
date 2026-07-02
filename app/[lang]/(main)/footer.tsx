@@ -44,7 +44,7 @@ function ThemeSwitch() {
 
   return (
     <AnimatedBackground
-      className="pointer-events-none rounded-lg bg-zinc-100 dark:bg-zinc-800"
+      className="pointer-events-none rounded-lg bg-white/10 dark:bg-zinc-800"
       defaultValue={theme}
       transition={{
         type: 'spring',
@@ -60,7 +60,7 @@ function ThemeSwitch() {
         return (
           <button
             key={theme.id}
-            className="inline-flex h-7 w-7 items-center justify-center text-zinc-500 transition-colors duration-100 focus-visible:outline-2 data-[checked=true]:text-zinc-950 dark:text-zinc-400 dark:data-[checked=true]:text-zinc-50"
+            className="inline-flex h-7 w-7 items-center justify-center text-zinc-300 transition-colors duration-100 focus-visible:outline-2 data-[checked=true]:text-white dark:text-zinc-400 dark:data-[checked=true]:text-zinc-50"
             type="button"
             aria-label={`Switch to ${theme.label} theme`}
             data-id={theme.id}
@@ -88,7 +88,7 @@ function LanguageSwitch() {
   return (
     <div className="flex items-center gap-2">
       <AnimatedBackground
-        className="pointer-events-none rounded-lg bg-zinc-100 dark:bg-zinc-800"
+        className="pointer-events-none rounded-lg bg-white/10 dark:bg-zinc-800"
         defaultValue={language}
         transition={{
           type: 'spring',
@@ -104,7 +104,7 @@ function LanguageSwitch() {
           return (
             <button
               key={lang.id}
-              className="inline-flex h-7 items-center justify-center px-2 text-[10px] font-medium text-zinc-500 uppercase transition-colors duration-100 focus-visible:outline-2 data-[checked=true]:text-zinc-950 dark:text-zinc-400 dark:data-[checked=true]:text-zinc-50"
+              className="inline-flex h-7 items-center justify-center px-2 text-[10px] font-medium text-zinc-300 uppercase transition-colors duration-100 focus-visible:outline-2 data-[checked=true]:text-white dark:text-zinc-400 dark:data-[checked=true]:text-zinc-50"
               type="button"
               aria-label={`Switch to ${lang.label} language`}
               data-id={lang.id}
@@ -120,10 +120,10 @@ function LanguageSwitch() {
 
 export function Footer() {
   return (
-    <footer className="mt-24 border-t border-zinc-100 px-0 py-4 dark:border-zinc-800">
+    <footer className="mt-24 border-t border-white/10 px-0 py-4 dark:border-zinc-800">
       <div className="flex items-center justify-between">
-        <a href="https://github.com/ibelick/nim" target="_blank">
-          <TextLoop className="text-xs text-zinc-500">
+        <a href="https://github.com/magorkollo" target="_blank">
+          <TextLoop className="text-xs text-zinc-300">
             <span>Don&apos;t Stop Believin&apos;</span>
             <span>magorkollo</span>
           </TextLoop>

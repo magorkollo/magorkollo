@@ -1,3 +1,7 @@
+export async function generateStaticParams() {
+  return [{ slug: 'example-mdx-metadata' }]
+}
+
 export async function generateMetadata({ params }) {
   const { lang } = await params
   const titles = {
