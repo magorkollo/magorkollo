@@ -3,6 +3,36 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
+  Two-role type system, same principle mldangelo.com uses: a display face for
+  headings, a serif for long-form reading. UI chrome (nav, buttons, badges)
+  is deliberately left off both and falls back to Tailwind's own sans stack.
+*/
+@theme {
+  --font-serif: var(--font-newsreader), Georgia, serif;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-bricolage);
+  }
+
+  /* MDX article body copy — paragraphs and lists inherit the serif; headings
+     inside .prose still resolve to Bricolage via the rule above, since an
+     explicit element rule always wins over an inherited value. Size/leading
+     (1.125rem / 1.65) come from the `prose-lg` modifier on the element
+     itself (see writing-client-wrapper.tsx) rather than being set here, so
+     they go through the typography plugin's own cascade instead of fighting it. */
+  .prose {
+    font-family: var(--font-serif);
+  }
+}
+
+/*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
   looks the same as it did with Tailwind CSS v3.
@@ -32,10 +62,83 @@
 }
 
 @keyframes gradient-shift {
-  0%, 100% { background-position: 0% center; }
-  50% { background-position: 100% center; }
+  0%,
+  100% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
 }
 
+/*
+  Runs once (not `infinite`) — the logo is re-keyed on hover in header.tsx to
+  replay it, rather than looping forever in the corner of the eye. Also the
+  reason it's a Tailwind utility rather than an inline style: `motion-reduce:`
+  needs a class to override.
+*/
 @utility animate-gradient-shift {
-  animation: gradient-shift 4s ease-in-out infinite;
+  animation: gradient-shift 2.5s ease-in-out 1;
+}
+
+/*
+  Print styles for paper-ready documents (e.g. CV / Resume).
+  Hides non-content UI chrome (header, footer, nav, theme switch, canvases),
+  removes heavy dark backgrounds, enforces high ink contrast, and prevents
+  unwanted page breaks across timeline entries.
+*/
+@media print {
+  html,
+  body {
+    background: #ffffff !important;
+    color: #111827 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  header,
+  footer,
+  nav,
+  canvas,
+  .pointer-events-none,
+  [aria-hidden='true'],
+  .print\:hidden {
+    display: none !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  span,
+  time,
+  li {
+    color: #111827 !important;
+    text-shadow: none !important;
+  }
+
+  hr,
+  .border-b,
+  .border-t {
+    border-color: #e5e7eb !important;
+  }
+
+  section,
+  article,
+  li {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  main {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  * {
+    box-shadow: none !important;
+  }
 }
