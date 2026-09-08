@@ -8,25 +8,15 @@ import {
   VARIANTS_SECTION,
   TRANSITION_SECTION,
 } from '@/lib/animations'
-import { SUMMARY } from '@/lib/data'
+import { SUMMARY, UI_STRINGS } from '@/lib/data'
 import { useLanguage } from '@/lib/language-context'
 
 export default function Personal() {
   const { language } = useLanguage()
 
   const t = {
-    latestWriting:
-      language === 'en'
-        ? 'Latest Writing'
-        : language === 'hu'
-          ? 'Legutóbbi írások'
-          : 'Ultimele articole',
-    viewAll:
-      language === 'en'
-        ? 'View all'
-        : language === 'hu'
-          ? 'Összes megtekintése'
-          : 'Vezi toate',
+    latestWriting: UI_STRINGS.home.latestWriting[language],
+    viewAll: UI_STRINGS.home.viewAll[language],
   }
 
   return (

@@ -16,6 +16,7 @@ import {
   LIKES,
   FUN_FACTS,
   ADMIRED_SITES,
+  UI_STRINGS,
 } from '@/lib/data'
 import {
   WORK_EXPERIENCE,
@@ -123,21 +124,9 @@ const SECTION_LABELS: Record<
     hu: 'Egy kis történelem',
     ro: 'Puțină istorie',
   },
-  experience: {
-    en: 'Work Experience',
-    hu: 'Munkatapasztalat',
-    ro: 'Experiență profesională',
-  },
-  education: {
-    en: 'Education',
-    hu: 'Tanulmányok',
-    ro: 'Educație',
-  },
-  volunteering: {
-    en: 'Volunteering',
-    hu: 'Önkéntesség',
-    ro: 'Voluntariat',
-  },
+  experience: UI_STRINGS.common.workExperience,
+  education: UI_STRINGS.common.education,
+  volunteering: UI_STRINGS.common.volunteering,
   travel: {
     en: 'Travel / Geography',
     hu: 'Utazás / Földrajz',

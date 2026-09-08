@@ -139,3 +139,77 @@ export const DREAMS: Content[] = [
     ro: 'O scenă tehnologică și de robotică transilvăneană care rivalizează cu oricare din Europa.',
   },
 ]
+
+export const UI_STRINGS = {
+  common: {
+    explore: {
+      en: 'Explore',
+      hu: 'Felfedezés',
+      ro: 'Explorează',
+    },
+    connect: {
+      en: 'Connect',
+      hu: 'Kapcsolat',
+      ro: 'Conectare',
+    },
+    summary: {
+      en: 'Summary',
+      hu: 'Összegzés',
+      ro: 'Rezumat',
+    },
+    workExperience: {
+      en: 'Work Experience',
+      hu: 'Munkatapasztalat',
+      ro: 'Experiență profesională',
+    },
+    volunteering: {
+      en: 'Volunteering',
+      hu: 'Önkéntesség',
+      ro: 'Voluntariat',
+    },
+    education: {
+      en: 'Education',
+      hu: 'Tanulmányok',
+      ro: 'Educație',
+    },
+    additionalInfo: {
+      en: 'Additional Information',
+      hu: 'További információk',
+      ro: 'Informații adiționale',
+    },
+    projects: {
+      en: 'Projects',
+      hu: 'Projektek',
+      ro: 'Proiecte',
+    },
+    downloadCV: {
+      en: 'Download CV',
+      hu: 'CV letöltése',
+      ro: 'Descarcă CV-ul',
+    },
+  },
+  home: {
+    latestWriting: {
+      en: 'Latest Writing',
+      hu: 'Legutóbbi írások',
+      ro: 'Ultimele articole',
+    },
+    viewAll: {
+      en: 'View all',
+      hu: 'Összes megtekintése',
+      ro: 'Vezi toate',
+    },
+  },
+  writing: {
+    onThisSite: {
+      en: 'Writings on this site',
+      hu: 'Írások ezen az oldalon',
+      ro: 'Articole pe acest site',
+    },
+    elsewhere: {
+      en: 'Selected information elsewhere',
+      hu: 'Válogatás máshonnan',
+      ro: 'Selecție din alte surse',
+    },
+  },
+} as const

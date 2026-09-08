@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { BLOG_POSTS, EXTERNAL_WRITING } from '@/app/[lang]/(main)/data'
+import { UI_STRINGS } from '@/lib/data'
 import { useLanguage, Language } from '@/lib/language-context'
 
 function formatDate(date: string, language: Language) {
@@ -25,18 +26,8 @@ export function WritingTable() {
   )
 
   const t = {
-    onThisSite:
-      language === 'en'
-        ? 'Writings on this site'
-        : language === 'hu'
-          ? 'Írások ezen az oldalon'
-          : 'Articole pe acest site',
-    elsewhere:
-      language === 'en'
-        ? 'Selected information elsewhere'
-        : language === 'hu'
-          ? 'Válogatás máshonnan'
-          : 'Selecție din alte surse',
+    onThisSite: UI_STRINGS.writing.onThisSite[language],
+    elsewhere: UI_STRINGS.writing.elsewhere[language],
   }
 
   return (

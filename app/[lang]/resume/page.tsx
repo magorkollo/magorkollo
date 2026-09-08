@@ -10,6 +10,7 @@ import {
   PROJECTS,
   SUMMARY,
 } from './data'
+import { UI_STRINGS } from '@/lib/data'
 import { useLanguage } from '@/lib/language-context'
 import {
   VARIANTS_CONTAINER,
@@ -49,48 +50,13 @@ export default function Resume() {
   const { language } = useLanguage()
 
   const t = {
-    summary:
-      language === 'en'
-        ? 'Summary'
-        : language === 'hu'
-          ? 'Összegzés'
-          : 'Rezumat',
-    work:
-      language === 'en'
-        ? 'Work Experience'
-        : language === 'hu'
-          ? 'Munkatapasztalat'
-          : 'Experiență profesională',
-    volunteering:
-      language === 'en'
-        ? 'Volunteering'
-        : language === 'hu'
-          ? 'Önkéntesség'
-          : 'Voluntariat',
-    education:
-      language === 'en'
-        ? 'Education'
-        : language === 'hu'
-          ? 'Tanulmányok'
-          : 'Educație',
-    additional:
-      language === 'en'
-        ? 'Additional Information'
-        : language === 'hu'
-          ? 'További információk'
-          : 'Informații adiționale',
-    projects:
-      language === 'en'
-        ? 'Projects'
-        : language === 'hu'
-          ? 'Projektek'
-          : 'Proiecte',
-    downloadCV:
-      language === 'en'
-        ? 'Download CV'
-        : language === 'hu'
-          ? 'CV letöltése'
-          : 'Descarcă CV-ul',
+    summary: UI_STRINGS.common.summary[language],
+    work: UI_STRINGS.common.workExperience[language],
+    volunteering: UI_STRINGS.common.volunteering[language],
+    education: UI_STRINGS.common.education[language],
+    additional: UI_STRINGS.common.additionalInfo[language],
+    projects: UI_STRINGS.common.projects[language],
+    downloadCV: UI_STRINGS.common.downloadCV[language],
   }
 
   return (

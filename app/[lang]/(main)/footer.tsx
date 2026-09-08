@@ -8,6 +8,7 @@ import {
 } from 'lucide-react'
 import { ProfilePhoto } from '@/components/ui/profile-photo'
 import { TextLoop } from '@/components/ui/text-loop'
+import { UI_STRINGS } from '@/lib/data'
 import { useLanguage } from '@/lib/language-context'
 import { ROLES } from './header'
 
@@ -60,18 +61,8 @@ export function Footer() {
   const { language } = useLanguage()
 
   const t = {
-    explore:
-      language === 'en'
-        ? 'Explore'
-        : language === 'hu'
-          ? 'Felfedezés'
-          : 'Explorează',
-    connect:
-      language === 'en'
-        ? 'Connect'
-        : language === 'hu'
-          ? 'Kapcsolat'
-          : 'Conectare',
+    explore: UI_STRINGS.common.explore[language],
+    connect: UI_STRINGS.common.connect[language],
   }
 
   return (
