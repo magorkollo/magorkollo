@@ -51,9 +51,15 @@ export function Spotlight({
     const handleMouseEnter = () => setIsHovered(true)
     const handleMouseLeave = () => setIsHovered(false)
 
-    parentElement.addEventListener('mousemove', handleMouseMove)
-    parentElement.addEventListener('mouseenter', handleMouseEnter)
-    parentElement.addEventListener('mouseleave', handleMouseLeave)
+    parentElement.addEventListener('mousemove', handleMouseMove, {
+      passive: true,
+    })
+    parentElement.addEventListener('mouseenter', handleMouseEnter, {
+      passive: true,
+    })
+    parentElement.addEventListener('mouseleave', handleMouseLeave, {
+      passive: true,
+    })
 
     return () => {
       parentElement.removeEventListener('mousemove', handleMouseMove)

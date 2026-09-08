@@ -15,17 +15,17 @@ export function CursorGlow() {
       mouseX.set(e.clientX)
       mouseY.set(e.clientY)
     }
-    window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [mouseX, mouseY])
 
   return (
     <motion.div
-      className="pointer-events-none fixed inset-0 z-[60] hidden md:block"
+      className="pointer-events-none fixed inset-0 z-[60] hidden [transform:translateZ(0)] md:block"
       style={{ x: springX, y: springY }}
       aria-hidden="true"
     >
-      <div className="h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-teal-400/8 to-purple-500/8 blur-[100px]" />
+      <div className="h-64 w-64 -translate-x-1/2 -translate-y-1/2 [transform:translateZ(0)] rounded-full bg-gradient-to-br from-teal-400/8 to-purple-500/8 blur-[100px] will-change-transform" />
     </motion.div>
   )
 }

@@ -1,6 +1,11 @@
 'use client'
 
-import { motion, useMotionValue, useTransform } from 'framer-motion'
+import {
+  motion,
+  useMotionValue,
+  useTransform,
+  useReducedMotion,
+} from 'framer-motion'
 import { Spotlight } from './spotlight'
 import { useEffect, useState } from 'react'
 
@@ -10,23 +15,27 @@ export function InteractiveBackground() {
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 })
   const [isMobile, setIsMobile] = useState(true)
   const [mounted, setMounted] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
+  const shouldReduceMotion = useReducedMotion()
 
   useEffect(() => {
     setMounted(true)
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  useEffect(() => {
-    const handleResize = () => {
+    const updateDimensions = () => {
+      setIsMobile(window.innerWidth < 768)
       setWindowSize({ width: window.innerWidth, height: window.innerHeight })
     }
+    updateDimensions()
 
-    handleResize() // Set initial size
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    const handleVisibility = () => {
+      setIsVisible(document.visibilityState === 'visible')
+    }
+
+    window.addEventListener('resize', updateDimensions, { passive: true })
+    document.addEventListener('visibilitychange', handleVisibility)
+    return () => {
+      window.removeEventListener('resize', updateDimensions)
+      document.removeEventListener('visibilitychange', handleVisibility)
+    }
   }, [])
 
   useEffect(() => {
@@ -42,8 +51,8 @@ export function InteractiveBackground() {
       }
     }
 
-    window.addEventListener('mousemove', handleMouseMove)
-    window.addEventListener('touchmove', handleTouchMove)
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
+    window.addEventListener('touchmove', handleTouchMove, { passive: true })
     return () => {
       window.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('touchmove', handleTouchMove)
@@ -57,27 +66,37 @@ export function InteractiveBackground() {
   const transformX3 = useTransform(mouseX, [0, windowSize.width], [-30, 30])
   const transformY3 = useTransform(mouseY, [0, windowSize.height], [-30, 30])
 
-  // Disable interactive transforms on small screens to save CPU
-  const x1 = !mounted || isMobile ? 0 : transformX1
-  const y1 = !mounted || isMobile ? 0 : transformY1
-  const x2 = !mounted || isMobile ? 0 : transformX2
-  const y2 = !mounted || isMobile ? 0 : transformY2
-  const x3 = !mounted || isMobile ? 0 : transformX3
-  const y3 = !mounted || isMobile ? 0 : transformY3
+  // Disable interactive transforms on small screens or when reduced motion preferred to save CPU
+  const disableTransforms = !mounted || isMobile || shouldReduceMotion
+  const x1 = disableTransforms ? 0 : transformX1
+  const y1 = disableTransforms ? 0 : transformY1
+  const x2 = disableTransforms ? 0 : transformX2
+  const y2 = disableTransforms ? 0 : transformY2
+  const x3 = disableTransforms ? 0 : transformX3
+  const y3 = disableTransforms ? 0 : transformY3
+
+  const canAnimate = mounted && isVisible && !shouldReduceMotion
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+    <div
+      className="pointer-events-none fixed inset-0 z-0 [transform:translateZ(0)] overflow-hidden"
+      aria-hidden="true"
+    >
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)]"></div>
       <motion.div
         className="absolute top-[-10%] left-[-10%] h-[40%] w-[40%]"
         style={{ x: x1, y: y1 }}
       >
         <motion.div
-          className="h-full w-full rounded-full bg-teal-400/20 blur-[80px] md:blur-[120px] dark:bg-[#2563EB]/30"
-          animate={{
-            x: ['-5%', '5%', '-5%'],
-            y: ['-5%', '5%', '-5%'],
-          }}
+          className="h-full w-full rounded-full bg-teal-400/20 blur-[80px] will-change-transform md:blur-[120px] dark:bg-[#2563EB]/30"
+          animate={
+            !canAnimate
+              ? false
+              : {
+                  x: ['-5%', '5%', '-5%'],
+                  y: ['-5%', '5%', '-5%'],
+                }
+          }
           transition={{
             duration: 40,
             ease: 'easeInOut',
@@ -91,11 +110,15 @@ export function InteractiveBackground() {
         style={{ x: x2, y: y2 }}
       >
         <motion.div
-          className="h-full w-full rounded-full bg-slate-400/20 blur-[80px] md:blur-[120px] dark:bg-[#A855F7]/20"
-          animate={{
-            x: ['-5%', '5%', '-5%'],
-            y: ['-5%', '5%', '-5%'],
-          }}
+          className="h-full w-full rounded-full bg-slate-400/20 blur-[80px] will-change-transform md:blur-[120px] dark:bg-[#A855F7]/20"
+          animate={
+            !canAnimate
+              ? false
+              : {
+                  x: ['-5%', '5%', '-5%'],
+                  y: ['-5%', '5%', '-5%'],
+                }
+          }
           transition={{
             duration: 40,
             ease: 'easeInOut',
@@ -110,11 +133,15 @@ export function InteractiveBackground() {
         style={{ x: x3, y: y3 }}
       >
         <motion.div
-          className="h-full w-full rounded-full bg-cyan-400/20 blur-[80px] md:blur-[120px] dark:bg-[#7C3AED]/30"
-          animate={{
-            x: ['-5%', '5%', '-5%'],
-            y: ['-5%', '5%', '-5%'],
-          }}
+          className="h-full w-full rounded-full bg-cyan-400/20 blur-[80px] will-change-transform md:blur-[120px] dark:bg-[#7C3AED]/30"
+          animate={
+            !canAnimate
+              ? false
+              : {
+                  x: ['-5%', '5%', '-5%'],
+                  y: ['-5%', '5%', '-5%'],
+                }
+          }
           transition={{
             duration: 50,
             ease: 'easeInOut',
