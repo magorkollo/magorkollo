@@ -5,7 +5,7 @@ import {
   useMotionValue,
   useTransform,
   useReducedMotion,
-} from 'framer-motion'
+} from 'motion/react'
 import { Spotlight } from './spotlight'
 import { useEffect, useState } from 'react'
 
