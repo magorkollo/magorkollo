@@ -5,10 +5,11 @@ import { usePathname } from 'next/navigation'
 import { useTheme } from 'next-themes'
 import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
-import { MoonIcon, SunIcon } from 'lucide-react'
+import { MoonIcon, SunIcon, ChevronDown } from 'lucide-react'
 import { useLanguage, Language } from '@/lib/language-context'
 import { useEntrance } from '@/components/entrance-context'
 import { AnimatedBackground } from '@/components/ui/animated-background'
+import { cn } from '@/lib/utils'
 import type { Content } from '@/lib/data'
 
 // Kept here (not in the header markup anymore) so the footer's profile block
@@ -48,6 +49,9 @@ const NAV_ITEMS: { href: string; label: Content }[] = [
     label: { en: 'Writing', hu: 'Blog', ro: 'Blog' },
   },
 ]
+
+const HOME_LABEL: Content = { en: 'Home', hu: 'Kezdőlap', ro: 'Acasă' }
+const MENU_LABEL: Content = { en: 'Menu', hu: 'Menü', ro: 'Meniu' }
 
 const LANGUAGE_OPTIONS: { label: string; id: Language }[] = [
   { label: 'en', id: 'en' },
@@ -162,16 +166,10 @@ export function Header() {
   const { language } = useLanguage()
   const pathname = usePathname()
   const headerRef = useRef<HTMLElement>(null)
-  // Remounting the gradient span (via `key`) is the reliable way to restart a
-  // CSS animation on demand in React — changing the key forces a fresh DOM
-  // node, so the one-shot `animate-gradient-shift` keyframe always replays
-  // from the start instead of a same-value re-declaration that most browsers
-  // won't restart.
+  const dropdownRef = useRef<HTMLDivElement>(null)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [gradientKey, setGradientKey] = useState(0)
 
-  // Publish the header's rendered height as a CSS var so other sticky
-  // elements (e.g. the per-post mountain hero) can stack below it instead of
-  // both competing for `top: 0`.
   useEffect(() => {
     const el = headerRef.current
     if (!el) return
@@ -189,17 +187,50 @@ export function Header() {
     return () => observer.disconnect()
   }, [])
 
+  // Close dropdown on click outside or escape key
+  useEffect(() => {
+    if (!isMenuOpen) return
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
+        setIsMenuOpen(false)
+      }
+    }
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsMenuOpen(false)
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isMenuOpen])
+
+  // Close dropdown on route change
+  useEffect(() => {
+    setIsMenuOpen(false)
+  }, [pathname])
+
   // Strip the /<lang> prefix and any nested slug so nav items can match on
   // the top-level route, e.g. /en/writing/some-post -> /writing
   const segments = pathname.split('/')
   const activeHref = `/${segments[2] || ''}`
+  const activeItem = NAV_ITEMS.find((item) => activeHref === item.href)
+  const currentNavTitle = activeItem
+    ? activeItem.label[language]
+    : activeHref === '/'
+      ? HOME_LABEL[language]
+      : MENU_LABEL[language]
 
   return (
     <header
       ref={headerRef}
       className="sticky top-0 z-40 w-full border-b border-white/10 bg-[#355c70]/90 backdrop-blur-xl dark:border-zinc-800 dark:bg-zinc-950/90"
     >
-      <div className="mx-auto flex h-16 w-full max-w-4xl items-center justify-between gap-4 px-6 md:px-12">
+      <div className="mx-auto flex h-16 w-full max-w-4xl items-center justify-between gap-2 px-4 sm:gap-4 sm:px-6 md:px-12">
         {/* Logo */}
         <Link
           href={`/${language}`}
@@ -214,8 +245,8 @@ export function Header() {
           </span>
         </Link>
 
-        {/* Nav links */}
-        <nav className="min-w-0 overflow-x-auto">
+        {/* Desktop Nav links (md+) */}
+        <nav className="hidden min-w-0 md:flex">
           <AnimatedBackground
             defaultValue={activeHref}
             enableHover={false}
@@ -227,7 +258,7 @@ export function Header() {
                 key={item.href}
                 href={`/${language}${item.href}`}
                 data-id={item.href}
-                className="rounded-full px-2.5 py-1.5 text-xs font-medium whitespace-nowrap text-zinc-300 uppercase transition-colors hover:text-white data-[checked=true]:text-white sm:px-3 sm:text-sm dark:text-zinc-400 dark:hover:text-zinc-50 dark:data-[checked=true]:text-zinc-50"
+                className="rounded-full px-3 py-1.5 text-sm font-medium whitespace-nowrap text-zinc-300 uppercase transition-colors hover:text-white data-[checked=true]:text-white dark:text-zinc-400 dark:hover:text-zinc-50 dark:data-[checked=true]:text-zinc-50"
               >
                 {item.label[language]}
               </Link>
@@ -235,8 +266,77 @@ export function Header() {
           </AnimatedBackground>
         </nav>
 
+        {/* Mobile Dropdown Menu (< md) */}
+        <div ref={dropdownRef} className="relative md:hidden">
+          <button
+            type="button"
+            onClick={() => setIsMenuOpen((open) => !open)}
+            aria-expanded={isMenuOpen}
+            aria-label="Navigation menu"
+            className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-white/20 active:bg-white/25 dark:bg-zinc-800/90 dark:text-zinc-200 dark:hover:bg-zinc-700"
+          >
+            <span>{currentNavTitle}</span>
+            <ChevronDown
+              className={cn(
+                'h-3.5 w-3.5 transition-transform duration-200',
+                isMenuOpen && 'rotate-180',
+              )}
+            />
+          </button>
+
+          <AnimatePresence>
+            {isMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -6, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -6, scale: 0.95 }}
+                transition={{ duration: 0.15, ease: 'easeOut' }}
+                className="absolute left-1/2 mt-2 w-44 -translate-x-1/2 overflow-hidden rounded-2xl border border-white/20 bg-[#254353]/95 p-1.5 shadow-2xl backdrop-blur-2xl dark:border-zinc-800 dark:bg-zinc-900/95"
+              >
+                <Link
+                  href={`/${language}`}
+                  onClick={() => setIsMenuOpen(false)}
+                  className={cn(
+                    'flex items-center justify-between rounded-xl px-3 py-2 text-xs font-medium transition-colors',
+                    activeHref === '/'
+                      ? 'bg-white/20 font-semibold text-white dark:bg-zinc-800 dark:text-zinc-50'
+                      : 'text-zinc-200 hover:bg-white/10 hover:text-white dark:text-zinc-400 dark:hover:bg-zinc-800/70 dark:hover:text-zinc-100',
+                  )}
+                >
+                  <span>{HOME_LABEL[language]}</span>
+                  {activeHref === '/' && (
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                  )}
+                </Link>
+
+                {NAV_ITEMS.map((item) => {
+                  const isActive = activeHref === item.href
+                  return (
+                    <Link
+                      key={item.href}
+                      href={`/${language}${item.href}`}
+                      onClick={() => setIsMenuOpen(false)}
+                      className={cn(
+                        'flex items-center justify-between rounded-xl px-3 py-2 text-xs font-medium transition-colors',
+                        isActive
+                          ? 'bg-white/20 font-semibold text-white dark:bg-zinc-800 dark:text-zinc-50'
+                          : 'text-zinc-200 hover:bg-white/10 hover:text-white dark:text-zinc-400 dark:hover:bg-zinc-800/70 dark:hover:text-zinc-100',
+                      )}
+                    >
+                      <span>{item.label[language]}</span>
+                      {isActive && (
+                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                      )}
+                    </Link>
+                  )
+                })}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
         {/* Actions: language switch + theme toggle, far right */}
-        <div className="flex shrink-0 items-center gap-2">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <LanguageSwitch />
           <ThemeToggle />
         </div>

@@ -148,8 +148,8 @@ export default async function Layout({
                 <div className="relative mx-auto w-full max-w-4xl flex-1 px-6 pt-8 md:px-12">
                   {children}
                 </div>
-                <div className="mt-16 w-full border-t-2 border-white dark:border-zinc-100" />
-                <div className="mx-auto w-full max-w-4xl px-6 py-10 md:px-12">
+                <div className="mt-16 w-full border-t border-white/15 dark:border-zinc-800" />
+                <div className="mx-auto w-full max-w-4xl px-4 py-8 sm:px-6 sm:py-10 md:px-12">
                   <Footer />
                 </div>
               </div>

@@ -66,9 +66,11 @@ export function Footer() {
   }
 
   return (
-    <footer>
-      <div className="grid w-full grid-cols-1 gap-10 sm:grid-cols-3">
-        <div className="flex items-start gap-3">
+    <footer className="w-full">
+      {/* Top section: Profile on left/top, Explore and Connect in 2 columns on mobile */}
+      <div className="flex flex-col gap-8 sm:grid sm:grid-cols-3 sm:gap-10">
+        {/* Profile Card */}
+        <div className="flex items-start gap-3.5">
           <div className="group relative h-12 w-12 shrink-0 overflow-hidden rounded-full border border-white/20 dark:border-zinc-700">
             <ProfilePhoto />
           </div>
@@ -91,49 +93,57 @@ export function Footer() {
                 ))}
               </TextLoop>
             </div>
-            <p className="mt-3 text-xs text-zinc-300/80 dark:text-zinc-500">
-              &copy; 2026, Transylvania
+          </div>
+        </div>
+
+        {/* Links: 2 columns on mobile, individual columns on desktop */}
+        <div className="grid grid-cols-2 gap-6 sm:contents">
+          <div>
+            <p className="text-xs font-semibold tracking-wider text-white uppercase dark:text-zinc-200">
+              {t.explore}
             </p>
+            <ul className="mt-3 space-y-2">
+              {EXPLORE_LINKS.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={`/${language}${item.href}`}
+                    className="text-sm text-zinc-300 transition-colors hover:text-white dark:text-zinc-400 dark:hover:text-white"
+                  >
+                    {item.label[language]}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
 
-        <div>
-          <p className="text-sm font-medium text-white dark:text-zinc-100">
-            {t.explore}
-          </p>
-          <ul className="mt-3 space-y-2">
-            {EXPLORE_LINKS.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={`/${language}${item.href}`}
-                  className="text-sm text-zinc-300 transition-colors hover:text-white dark:text-zinc-400 dark:hover:text-white"
+          <div>
+            <p className="text-xs font-semibold tracking-wider text-white uppercase dark:text-zinc-200">
+              {t.connect}
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {CONNECT_LINKS.map(({ label, href, icon: Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={label}
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-zinc-200 transition-colors hover:bg-white/20 hover:text-white dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700 dark:hover:text-white"
                 >
-                  {item.label[language]}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <p className="text-sm font-medium text-white dark:text-zinc-100">
-            {t.connect}
-          </p>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {CONNECT_LINKS.map(({ label, href, icon: Icon }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={label}
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-zinc-200 transition-colors hover:bg-white/20 hover:text-white dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700 dark:hover:text-white"
-              >
-                <Icon className="h-4 w-4" />
-              </a>
-            ))}
+                  <Icon className="h-4 w-4" />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
+      </div>
+
+      {/* Bottom Copyright & Location Bar */}
+      <div className="mt-8 flex flex-col items-center justify-between gap-2 border-t border-white/10 pt-4 text-xs text-zinc-300/80 sm:flex-row dark:border-zinc-800 dark:text-zinc-500">
+        <p>&copy; 2026 Magor Köllő &bull; Transylvania</p>
+        <p className="text-[11px] text-zinc-300/60 dark:text-zinc-600">
+          Built with Next.js &amp; Tailwind CSS
+        </p>
       </div>
     </footer>
   )
