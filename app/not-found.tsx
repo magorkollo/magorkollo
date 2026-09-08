@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { PineForest } from '@/components/ui/pine-forest'
 
 export default function NotFound() {
   return (
@@ -8,22 +9,27 @@ export default function NotFound() {
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <svg
             viewBox="0 0 800 200"
-            className="absolute bottom-0 left-0 w-full fill-purple-900/10"
+            className="absolute bottom-0 left-0 w-full fill-[#c3d4e0]/15 dark:fill-[#22384f]/25"
           >
             <path d="M0 200 L150 40 L300 160 L450 20 L600 140 L750 50 L800 200 Z" />
           </svg>
           <svg
             viewBox="0 0 800 200"
-            className="absolute bottom-0 left-0 w-full fill-blue-800/10"
+            className="absolute bottom-0 left-0 w-full fill-[#8ba7bd]/20 dark:fill-[#182838]/30"
           >
             <path d="M-50 200 L120 100 L280 180 L450 60 L620 150 L850 200 Z" />
           </svg>
           <svg
             viewBox="0 0 800 200"
-            className="absolute bottom-0 left-0 w-full fill-emerald-500/20"
+            className="absolute bottom-0 left-0 w-full fill-[#6d8da8]/25 dark:fill-[#132030]/40"
           >
             <path d="M-100 200 L80 130 L250 190 L420 110 L600 170 L900 200 Z" />
           </svg>
+          <PineForest
+            band="near"
+            idPrefix="notfound"
+            className="absolute bottom-0 left-0 w-full fill-[#3a5a78]/30 dark:fill-[#101d2c]/45"
+          />
         </div>
 
         <div className="relative z-10 px-4 text-center">

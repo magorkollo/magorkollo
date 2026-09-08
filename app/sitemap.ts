@@ -1,10 +1,11 @@
 import { MetadataRoute } from 'next'
 import { BLOG_POSTS } from './[lang]/(main)/data'
+import { WEBSITE_URL } from '@/lib/constants'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://nim-fawn.vercel.app'
+  const baseUrl = WEBSITE_URL
   const languages = ['en', 'hu', 'ro']
-  const routes = ['', '/cv', '/blog']
+  const routes = ['', '/about', '/resume', '/writing']
 
   const staticEntries = languages.flatMap((lang) =>
     routes.map((route) => ({

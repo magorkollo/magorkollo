@@ -1,7 +1,12 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import { AnimatePresence, Transition, motion } from 'motion/react'
+import {
+  AnimatePresence,
+  Transition,
+  motion,
+  useReducedMotion,
+} from 'motion/react'
 import {
   Children,
   cloneElement,
@@ -43,6 +48,10 @@ export function AnimatedBackground({
 }: AnimatedBackgroundProps) {
   const [activeId, setActiveId] = useState<string | null>(null)
   const uniqueId = useId()
+  const shouldReduceMotion = useReducedMotion()
+  // The sliding highlight pill (nav active state, theme/language switches)
+  // snaps instantly rather than gliding — one fix here covers every caller.
+  const resolvedTransition = shouldReduceMotion ? { duration: 0 } : transition
 
   const handleSetActiveId = (id: string | null) => {
     setActiveId(id)
@@ -88,7 +97,7 @@ export function AnimatedBackground({
                 <motion.div
                   layoutId={`background-${uniqueId}`}
                   className={cn('absolute inset-0', className)}
-                  transition={transition}
+                  transition={resolvedTransition}
                   initial={{ opacity: defaultValue ? 1 : 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}

@@ -1,16 +1,27 @@
 import type { Metadata, Viewport } from 'next'
 import { ThemeProvider } from 'next-themes'
 import { LanguageProvider, Language } from '@/lib/language-context'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Bricolage_Grotesque, Newsreader } from 'next/font/google'
+import { Header } from './(main)/header'
+import { Footer } from './(main)/footer'
+import { EntranceProvider } from '@/components/entrance-context'
+import { WEBSITE_URL } from '@/lib/constants'
 
-const geist = Geist({
-  variable: '--font-geist',
+// Display face for headings (h1-h6, see globals.css) paired with a serif for
+// long-form body copy — the same two-role pairing mldangelo.com uses, with
+// our own faces. UI chrome (nav, buttons, badges) is left on the system sans
+// stack rather than either of these, matching how that pairing is actually
+// used there: serif is reserved for reading content, not everything.
+const bricolage = Bricolage_Grotesque({
+  variable: '--font-bricolage',
   subsets: ['latin'],
+  display: 'swap',
 })
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const newsreader = Newsreader({
+  variable: '--font-newsreader',
   subsets: ['latin'],
+  display: 'swap',
 })
 
 export async function generateStaticParams() {
@@ -30,7 +41,7 @@ const DESCRIPTIONS = {
 }
 
 const SITE_NAME = 'Magor Köllő'
-const BASE_URL = 'https://nim-fawn.vercel.app'
+const BASE_URL = WEBSITE_URL
 
 export async function generateMetadata({
   params,
@@ -69,9 +80,9 @@ export async function generateMetadata({
       type: 'website',
       images: [
         {
-          url: `${BASE_URL}/og-image.jpg`,
-          width: 1200,
-          height: 630,
+          url: `${BASE_URL}/magor2.png`,
+          width: 1080,
+          height: 1350,
           alt: SITE_NAME,
         },
       ],
@@ -101,37 +112,47 @@ export default async function Layout({
   return (
     <html lang={currentLang} suppressHydrationWarning>
       <body
-        className={`${geist.variable} ${geistMono.variable} bg-[#355c70] tracking-tight text-zinc-50 antialiased dark:bg-zinc-950 dark:text-zinc-50`}
+        className={`${bricolage.variable} ${newsreader.variable} bg-[#355c70] tracking-tight text-zinc-50 antialiased dark:bg-zinc-950 dark:text-zinc-50`}
       >
         <ThemeProvider
-          enableSystem={false}
+          enableSystem
           attribute="class"
           storageKey="theme"
-          defaultTheme="dark"
+          defaultTheme="system"
         >
           <LanguageProvider>
-            <script
-              type="application/ld+json"
-              dangerouslySetInnerHTML={{
-                __html: JSON.stringify({
-                  '@context': 'https://schema.org',
-                  '@type': 'Person',
-                  name: 'Magor Köllő',
-                  url: BASE_URL,
-                  jobTitle: 'Software Engineer',
-                  sameAs: [
-                    'https://github.com/magorkollo',
-                    'https://www.linkedin.com/in/magorkollo',
-                  ],
-                  description: DESCRIPTIONS[currentLang] || DESCRIPTIONS.en,
-                }),
-              }}
-            />
-            <div className="flex min-h-screen w-full flex-col font-[family-name:var(--font-geist)]">
-              <div className="relative mx-auto w-full max-w-screen-sm flex-1 px-4 pt-20">
-                {children}
+            <EntranceProvider>
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                  __html: JSON.stringify({
+                    '@context': 'https://schema.org',
+                    '@type': 'Person',
+                    name: 'Magor Köllő',
+                    url: BASE_URL,
+                    jobTitle: 'Software Engineer',
+                    sameAs: [
+                      'https://github.com/magorkollo',
+                      'https://www.linkedin.com/in/magorkollo',
+                      'https://www.instagram.com/magorkollo/',
+                      'https://www.facebook.com/magorors.kollo/',
+                      'https://www.tiktok.com/@magor.kollo',
+                    ],
+                    description: DESCRIPTIONS[currentLang] || DESCRIPTIONS.en,
+                  }),
+                }}
+              />
+              <div className="flex min-h-screen w-full flex-col">
+                <Header />
+                <div className="relative mx-auto w-full max-w-4xl flex-1 px-6 pt-8 md:px-12">
+                  {children}
+                </div>
+                <div className="mt-16 w-full border-t-2 border-white dark:border-zinc-100" />
+                <div className="mx-auto w-full max-w-4xl px-6 py-10 md:px-12">
+                  <Footer />
+                </div>
               </div>
-            </div>
+            </EntranceProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>

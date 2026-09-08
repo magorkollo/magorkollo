@@ -2,11 +2,7 @@
 
 import { PageTransitionWrapper } from '@/components/page-transition-wrapper'
 
-export default function MainLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <PageTransitionWrapper>
       <main>{children}</main>

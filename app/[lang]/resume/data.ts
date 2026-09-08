@@ -1,5 +1,5 @@
 import type { Content, SocialLink } from '@/lib/data'
-export { SOCIAL_LINKS, EMAIL } from '@/lib/data'
+export { SOCIAL_LINKS, EMAIL, SUMMARY } from '@/lib/data'
 export type { Content, SocialLink }
 
 export type WorkExperience = {
@@ -28,10 +28,25 @@ export type AdditionalInfo = {
   id: string
 }
 
-export const SUMMARY: Content = {
-  en: 'Software Engineer and Team Lead specializing in performance-critical, low-latency market connectivity systems for global exchanges. Proven track record of bridging high-frequency trading architectures with autonomous GenAI workflows to automate complex development lifecycles. Passionate about community building and STEM education, actively leading a youth-focused NGO to empower the next generation of leaders, creators, and community builders.',
-  hu: 'Szoftvermérnök, vezetői tapasztalattal a technológiai iparban és non-profit vezetésében. Jelenleg teljesítmény-kritikus rendszereken dolgozom befektetési bankoknak a FinTech iparágnak, de élénken érdeklődöm a mesterséges intelligencia, az autonóm rendszerek és a dróntechnológia iránt is. Szabadidőmben egy ifjúsági projektekkel foglalkozó civil szervezetet vezetek, és tanítom a következő generációkat robotikára, drónok használatára és a mesterséges intelligencia hatékony alkalmazására. Folyamatosan azon gondolkodom, hogyan tehetném jobbá a világot - és igyekszem a legjobbamat nyújtani, hogy ezen ötletek egy részét megvalósítsam. Így a szoftverfejlesztés mellett közösségeket és álmokat is próbálok építeni.',
-  ro: 'Inginer software cu experiență de conducere în medii dinamice și cu impact ridicat, inclusiv în sectorul tehnologic și nonprofit. În prezent lucrez în high-frequency trading, concentrându-mă pe sisteme critice pentru performanță, dar am un interes puternic și pentru sistemele autonome, AI și tehnologia dronelor. În timpul liber, conduc un ONG implicat în proiecte pentru tineret și predau următoarei generații în domeniile STEM ca robotică sau drone. Reflectez constant la modul în care pot ajuta la transformarea lumii într-un loc mai bun - și fac tot posibilul să transform unele dintre aceste idei în realitate. Prin urmare, pe lângă dezvoltarea de software, încerc să construiesc comunități și visuri.',
+export type Project = {
+  name: string
+  description: Content
+  link: string
+  image: string
+  id: string
+}
+
+// Dates/description/tags are optional — some entries here are placeholders
+// pending real details, and the resume/about renderers skip whatever isn't
+// provided rather than showing a fake date range or description.
+export type Volunteering = {
+  company: string
+  title: Content
+  description?: Content
+  start?: string
+  end?: string
+  id: string
+  tags?: string[]
 }
 
 export const WORK_EXPERIENCE: WorkExperience[] = [
@@ -243,24 +258,62 @@ export const ADDITIONAL_INFO: AdditionalInfo[] = [
     ],
     id: 'info4',
   },
+]
+
+// Placeholder entries — company/role are real, dates/description/tags to
+// follow. Renderers on both the resume and about pages skip whatever's
+// missing rather than showing a fake date range.
+export const VOLUNTEERING: Volunteering[] = [
   {
+    company: 'Transylvanian Youth Center',
     title: {
-      en: 'Volunteering',
-      hu: 'Önkéntesség',
-      ro: 'Voluntariat',
+      en: 'Vice President',
+      hu: 'Alelnök',
+      ro: 'Vicepreședinte',
     },
-    items: [
-      {
-        en: 'Vice-president, executive @ Transylvanian Youth Center',
-        hu: 'Alelnök, ügyvezető @ Erdélyi Ifjúsági Központ',
-        ro: 'Vicepreședinte, executiv @ Centrul de Tineret Transilvănean',
-      },
-      {
-        en: 'STEM teacher and coordinator @ Mathias Corvinus Collegium',
-        hu: 'STEM tanár és koordinátor @ Mathias Corvinus Collegium',
-        ro: 'Profesor STEM și coordonator @ Mathias Corvinus Collegium',
-      },
-    ],
-    id: 'info5',
+    id: 'vol1',
+  },
+  {
+    company: 'Mathias Corvinus Collegium',
+    title: {
+      en: 'STEM Educator',
+      hu: 'STEM oktató',
+      ro: 'Educator STEM',
+    },
+    id: 'vol2',
+  },
+  {
+    company: 'Canadian Rákóczi Foundation',
+    title: {
+      en: 'Regional Coordinator / Team Lead',
+      hu: 'Regionális koordinátor / csapatvezető',
+      ro: 'Coordonator regional / Team Lead',
+    },
+    id: 'vol3',
+  },
+]
+
+export const PROJECTS: Project[] = [
+  {
+    name: 'Autonomous Robot',
+    description: {
+      en: 'An autonomous mobile robot platform developed for navigation and mapping in complex environments.',
+      hu: 'Autonóm mobil robot platform, amelyet összetett környezetben való navigációra és térképezésre fejlesztettek ki.',
+      ro: 'O platformă robotizată mobilă autonomă dezvoltată pentru navigare și cartografiere în medii complexe.',
+    },
+    link: 'https://github.com/magorkollo/autonomous_robot',
+    image: '/waffle_parts.png',
+    id: 'project1',
+  },
+  {
+    name: 'SkillBoosters',
+    description: {
+      en: 'A comprehensive educational program designed to boost technical skills and foster innovation among young people.',
+      hu: 'Átfogó oktatási program, amelynek célja a technikai készségek fejlesztése és az innováció ösztönzése a fiatalok körében.',
+      ro: 'Un program educațional cuprinzător conceput pentru a spori abilitățile tehnice și a promova inovația în rândul tinerilor.',
+    },
+    link: 'https://www.youthcenter.ro/en/skillboosters/details/',
+    image: '/skillboosters-main.jpg',
+    id: 'project2',
   },
 ]

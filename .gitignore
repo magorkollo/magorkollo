@@ -42,3 +42,6 @@ next-env.d.ts
 
 #AI
 *.md
+
+# plan file (implementation plan for mldangelo-style restructure)
+PLAN.md

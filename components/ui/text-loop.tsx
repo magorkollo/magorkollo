@@ -6,6 +6,7 @@ import {
   Transition,
   Variants,
   AnimatePresenceProps,
+  useReducedMotion,
 } from 'motion/react'
 import { useState, useEffect, Children } from 'react'
 
@@ -32,9 +33,13 @@ export function TextLoop({
 }: TextLoopProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const items = Children.toArray(children)
+  const shouldReduceMotion = useReducedMotion()
 
   useEffect(() => {
-    if (!trigger) return
+    // Cycling text is exactly the kind of "perpetual motion" prefers-reduced-motion
+    // exists for — every caller (role loops, etc.) gets this for free rather
+    // than each needing its own check.
+    if (!trigger || shouldReduceMotion) return
 
     const intervalMs = interval * 1000
     const timer = setInterval(() => {
@@ -45,7 +50,7 @@ export function TextLoop({
       })
     }, intervalMs)
     return () => clearInterval(timer)
-  }, [items.length, interval, onIndexChange, trigger])
+  }, [items.length, interval, onIndexChange, trigger, shouldReduceMotion])
 
   const motionVariants: Variants = {
     initial: { y: 20, opacity: 0 },

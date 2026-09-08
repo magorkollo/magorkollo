@@ -1,0 +1,58 @@
+export async function generateStaticParams() {
+  return [{ slug: 'building-autonomous-genai-workflows-langgraph-mcp' }]
+}
+
+export async function generateMetadata({ params }) {
+  const { lang } = await params
+  const titles = {
+    en: 'Building Autonomous GenAI Workflows with LangGraph and MCP',
+    hu: 'Autonóm GenAI munkafolyamatok építése LangGraph-fal és MCP-vel',
+    ro: 'Construirea unor fluxuri de lucru GenAI autonome cu LangGraph și MCP',
+  }
+  const descriptions = {
+    en: 'How a small team automated parts of its own development lifecycle using RAG pipelines, agentic tooling, and the Model Context Protocol.',
+    hu: 'Hogyan automatizált egy kis csapat részeket a saját fejlesztési életciklusából RAG csővezetékek, ügynök-alapú eszközök és a Model Context Protocol segítségével.',
+    ro: 'Cum a automatizat o echipă mică părți din propriul ciclu de dezvoltare folosind pipeline-uri RAG, unelte agentice și Model Context Protocol.',
+  }
+  return {
+    title: titles[lang] || titles.en,
+    description: descriptions[lang] || descriptions.en,
+  }
+}
+
+<En>
+# Building Autonomous GenAI Workflows with LangGraph and MCP
+
+_This is placeholder content for demonstration purposes — the metadata above is realistic, the body below is lorem ipsum._
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+## RAG Pipelines
+
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+
+## Self-Improving Knowledge Bases
+
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+
+Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+
+</En>
+
+<Hu>
+# Autonóm GenAI munkafolyamatok építése LangGraph-fal és MCP-vel
+
+_Ez egy helyőrző tartalom bemutatási célokra — a fenti metaadatok valósak, a lenti szöveg lorem ipsum._
+
+[... a teljes tartalom hamarosan érkezik ...]
+
+</Hu>
+
+<Ro>
+# Construirea unor fluxuri de lucru GenAI autonome cu LangGraph și MCP
+
+_Acesta este conținut de test, în scop demonstrativ — metadatele de mai sus sunt reale, textul de mai jos este lorem ipsum._
+
+[... conținut complet în curând ...]
+
+</Ro>
