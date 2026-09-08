@@ -80,10 +80,10 @@ export async function generateMetadata({
       type: 'website',
       images: [
         {
-          url: `${BASE_URL}/magor2.png`,
-          width: 1080,
-          height: 1350,
-          alt: SITE_NAME,
+          url: `${BASE_URL}/og-image.png`,
+          width: 1200,
+          height: 630,
+          alt: `${SITE_NAME} - Software Engineer & Team Lead`,
         },
       ],
     },
@@ -91,6 +91,7 @@ export async function generateMetadata({
       card: 'summary_large_image',
       title: SITE_NAME,
       description: DESCRIPTIONS[currentLang] || DESCRIPTIONS.en,
+      images: [`${BASE_URL}/og-image.png`],
     },
     robots: {
       index: true,
