@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "ext": "webp",
+  "pad": 4,
+  "sets": {
+    "desktop": {
+      "width": 1600,
+      "height": 1000
+    },
+    "mobile": {
+      "width": 960,
+      "height": 600
+    }
+  },
+  "sequences": {
+    "globe": {
+      "count": 72,
+      "loop": true,
+      "fps": 12
+    },
+    "approach": {
+      "count": 48,
+      "loop": false
+    },
+    "turntable": {
+      "count": 72,
+      "loop": true,
+      "fps": 12
+    }
+  },
+  "legend": {
+    "unit": "m",
+    "stops": [
+      {
+        "value": 50,
+        "color": "#335c8e"
+      },
+      {
+        "value": 550,
+        "color": "#73a1c0"
+      },
+      {
+        "value": 1000,
+        "color": "#b7c3be"
+      },
+      {
+        "value": 1500,
+        "color": "#d2a57b"
+      },
+      {
+        "value": 1950,
+        "color": "#b55b48"
+      },
+      {
+        "value": 2450,
+        "color": "#f7f2ef"
+      }
+    ]
+  },
+  "poster": "turntable/0000"
+}

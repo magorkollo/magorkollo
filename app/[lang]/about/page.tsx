@@ -10,7 +10,6 @@ import {
 import {
   ABOUT,
   DREAMS,
-  SOCIAL_LINKS,
   HISTORY,
   TRAVEL,
   LIKES,
@@ -27,6 +26,7 @@ import {
 import { ROLES } from '../(main)/header'
 import { useLanguage } from '@/lib/language-context'
 import type { Language } from '@/lib/language-context'
+import { cn } from '@/lib/utils'
 
 // Each chapter is separated by a full-contrast rule above its heading, the
 // same treatment mldangelo.com/about uses (`border-top` on the section h2).
@@ -53,12 +53,17 @@ function SectionHeading({ id, title }: { id: string; title: string }) {
 }
 
 function LogList({ children }: { children: React.ReactNode }) {
-  return <ul className="mt-4 flex flex-col gap-3">{children}</ul>
+  return <ul className="mt-4 flex flex-col gap-4 sm:gap-3">{children}</ul>
 }
 
 // Same dot-and-line treatment as the résumé's TimelineEntry (teal-to-purple
 // connecting line, teal-ringed dot) — the dot is hollow by default and fills
 // solid on hover of its own entry, scoped via a per-`<li>` `group`.
+//
+// Below `sm` the marker stacks directly above the text. A fixed-width date
+// column beside the text squeezed it into half the screen on a phone and left
+// a wide empty gap after short markers ("2019") — stacked, the date sits
+// right on top of its entry and the text gets the full width.
 function LogEntry({
   marker,
   children,
@@ -67,9 +72,21 @@ function LogEntry({
   children: React.ReactNode
 }) {
   return (
-    <li className="group relative flex gap-4 pl-6 before:absolute before:top-2 before:left-[5px] before:h-[calc(100%+0.75rem)] before:w-[2px] before:bg-gradient-to-b before:from-teal-500/40 before:to-purple-500/40 last:before:hidden">
-      <span className="absolute top-1.5 left-0 h-3 w-3 rounded-full border-2 border-teal-400 bg-transparent transition-colors duration-200 group-hover:bg-teal-400 dark:border-[#B39DDB] dark:group-hover:bg-[#B39DDB]" />
-      <span className="w-24 shrink-0 pt-px text-xs font-medium text-zinc-300 sm:w-32 sm:text-sm dark:text-zinc-400">
+    <li className="group relative flex flex-col gap-0.5 pl-6 before:absolute before:top-2 before:left-[5px] before:h-[calc(100%+1rem)] before:w-[2px] before:bg-gradient-to-b before:from-teal-500/40 before:to-purple-500/40 last:before:hidden sm:flex-row sm:gap-4 sm:before:h-[calc(100%+0.75rem)]">
+      {/* Mobile: centred on the first line, which is the small marker when
+          there is one and the larger body text when there isn't. */}
+      <span
+        className={cn(
+          'absolute left-0 h-3 w-3 rounded-full border-2 border-teal-400 bg-transparent transition-colors duration-200 group-hover:bg-teal-400 sm:top-1.5 dark:border-[#B39DDB] dark:group-hover:bg-[#B39DDB]',
+          marker ? 'top-[3px]' : 'top-2',
+        )}
+      />
+      <span
+        className={cn(
+          'shrink-0 pt-px text-xs font-medium text-zinc-300 sm:w-32 sm:text-sm dark:text-zinc-400',
+          !marker && 'hidden sm:block',
+        )}
+      >
         {marker}
       </span>
       <span className="font-serif text-lg leading-relaxed text-zinc-200 dark:text-zinc-300">
@@ -115,8 +132,7 @@ const SECTION_LABELS: Record<
   | 'likes'
   | 'funFacts'
   | 'dreams'
-  | 'admiredSites'
-  | 'elsewhere',
+  | 'admiredSites',
   Record<Language, string>
 > = {
   history: {
@@ -152,11 +168,6 @@ const SECTION_LABELS: Record<
     hu: 'Oldalak emberektől, akiket csodálok',
     ro: 'Site-uri de la oameni pe care îi admir',
   },
-  elsewhere: {
-    en: 'Find Me Elsewhere',
-    hu: 'Találj meg máshol',
-    ro: 'Găsește-mă și altundeva',
-  },
 }
 
 export default function About() {
@@ -186,7 +197,6 @@ export default function About() {
     { id: 'fun-facts', label: SECTION_LABELS.funFacts[language] },
     { id: 'dreams', label: SECTION_LABELS.dreams[language] },
     { id: 'admired-sites', label: SECTION_LABELS.admiredSites[language] },
-    { id: 'elsewhere', label: SECTION_LABELS.elsewhere[language] },
   ]
 
   return (
@@ -422,30 +432,6 @@ export default function About() {
             <li key={index}>{site[language]}</li>
           ))}
         </CompactList>
-      </motion.section>
-
-      <motion.section
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-      >
-        <SectionHeading
-          id="elsewhere"
-          title={SECTION_LABELS.elsewhere[language]}
-        />
-        <ul className="mt-4 space-y-2 text-lg">
-          {SOCIAL_LINKS.map((link) => (
-            <li key={link.label}>
-              <a
-                href={link.link}
-                target="_blank"
-                rel="noreferrer"
-                className="text-zinc-200 underline decoration-white/20 underline-offset-4 transition-colors hover:text-white hover:decoration-white dark:text-zinc-300 dark:hover:text-white"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
       </motion.section>
     </motion.main>
   )

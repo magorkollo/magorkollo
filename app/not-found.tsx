@@ -27,7 +27,6 @@ export default function NotFound() {
           </svg>
           <PineForest
             band="near"
-            idPrefix="notfound"
             className="absolute bottom-0 left-0 w-full fill-[#3a5a78]/30 dark:fill-[#101d2c]/45"
           />
         </div>

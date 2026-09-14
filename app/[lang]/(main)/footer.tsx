@@ -141,7 +141,7 @@ export function Footer() {
       {/* Bottom Copyright & Location Bar */}
       <div className="mt-8 flex flex-col items-center justify-between gap-2 border-t border-white/10 pt-4 text-xs text-zinc-300/80 sm:flex-row dark:border-zinc-800 dark:text-zinc-500">
         <p>&copy; 2026 Magor Köllő &bull; Transylvania</p>
-        <p className="text-[11px] text-zinc-300/60 dark:text-zinc-600">
+        <p className="hidden text-[11px] text-zinc-300/60 sm:block dark:text-zinc-600">
           Built with Next.js &amp; Tailwind CSS
         </p>
       </div>

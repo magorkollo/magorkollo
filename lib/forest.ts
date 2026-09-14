@@ -4,14 +4,11 @@ export type Tree = {
   x: number
   y: number
   scale: number
-  /** Part of the reduced set kept on small screens. */
-  mobile: boolean
 }
 
 export type BandConfig = {
   seed: number
   count: number
-  mobileCount: number
   xRange: [number, number]
   viewBoxHeight: number
   yBase: number
@@ -20,31 +17,38 @@ export type BandConfig = {
   fillClassName: string
 }
 
+// The horizontal slice of the 800-unit-wide mountain scene shown on phones
+// (below `sm`). Squeezing all 800 units into a ~375px screen shrinks every
+// ridge and tree to about a quarter of its desktop size, so small screens show
+// the centre 200 units instead, at roughly desktop pixel scale (375px / 200 ≈
+// 1.9px per unit, against 1440px / 800 = 1.8 on a laptop). Shared by the ridges
+// and the forest bands so both crop to the same window.
+export const MOBILE_VIEW = { x: 300, width: 200 } as const
+
 // Three bands, from the distant treeline down to the foreground trees that
 // frame the viewport. Colours follow the monochrome-blue atmospheric ramp:
-// palest furthest away, dark navy closest.
+// palest furthest away, dark navy closest. The dark ramp steps down from the
+// ridges behind each band so every layer still separates at night.
 export const FOREST_BANDS: Record<ForestBandId, BandConfig> = {
   mid: {
     seed: 1,
     count: 240,
-    mobileCount: 120,
     xRange: [-20, 820],
     viewBoxHeight: 180,
     yBase: 144,
     yJitter: 14,
     scaleRange: [0.1, 0.2],
-    fillClassName: 'fill-[#5a7d99] dark:fill-[#1a2c40]',
+    fillClassName: 'fill-[#5a7d99] dark:fill-[#142538]',
   },
   near: {
     seed: 2,
     count: 200,
-    mobileCount: 100,
     xRange: [-30, 830],
     viewBoxHeight: 240,
     yBase: 213,
     yJitter: 17,
     scaleRange: [0.16, 0.3],
-    fillClassName: 'fill-[#3a5a78] dark:fill-[#101d2c]',
+    fillClassName: 'fill-[#3a5a78] dark:fill-[#0c1724]',
   },
   // The closest band: ~4x the tree count of the others and a tall `yJitter`
   // so trees stack over many implied rows rather than one line, making the
@@ -52,13 +56,12 @@ export const FOREST_BANDS: Record<ForestBandId, BandConfig> = {
   fore: {
     seed: 3,
     count: 520,
-    mobileCount: 240,
     xRange: [-60, 860],
     viewBoxHeight: 260,
     yBase: 235,
     yJitter: 90,
     scaleRange: [0.3, 0.55],
-    fillClassName: 'fill-[#1b2f4a] dark:fill-[#060c15]',
+    fillClassName: 'fill-[#1b2f4a] dark:fill-[#050a12]',
   },
 }
 
@@ -93,12 +96,7 @@ export function buildBand(cfg: BandConfig): Tree[] {
     const x = slotCenter + (rand() - 0.5) * slotWidth * 1.3
     const y = cfg.yBase + (rand() - 0.5) * cfg.yJitter
     const scale = scaleMin + rand() * (scaleMax - scaleMin)
-    // Thin the mobile set by taking every Nth tree in x order, so small
-    // screens keep an even spread across the band rather than a dense clump
-    // at one end (which is what slicing the first N would give).
-    const step = cfg.count / cfg.mobileCount
-    const mobile = Math.floor(i % step) === 0
-    trees.push({ x, y, scale, mobile })
+    trees.push({ x, y, scale })
   }
 
   // Paint back-to-front: higher on screen (smaller y) is further away, so it

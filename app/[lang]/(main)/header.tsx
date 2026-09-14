@@ -4,7 +4,13 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useTheme } from 'next-themes'
 import { useEffect, useRef, useState } from 'react'
-import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
+import {
+  motion,
+  AnimatePresence,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+} from 'motion/react'
 import { MoonIcon, SunIcon, ChevronDown } from 'lucide-react'
 import { useLanguage, Language } from '@/lib/language-context'
 import { useEntrance } from '@/components/entrance-context'
@@ -52,6 +58,11 @@ const NAV_ITEMS: { href: string; label: Content }[] = [
 
 const HOME_LABEL: Content = { en: 'Home', hu: 'Kezdőlap', ro: 'Acasă' }
 const MENU_LABEL: Content = { en: 'Menu', hu: 'Menü', ro: 'Meniu' }
+
+// Distance (px) a scroll must travel in one direction before the header hides
+// or reappears — big enough that a resting finger or iOS momentum jitter
+// doesn't make it flicker, small enough to still feel immediate.
+const SCROLL_TOGGLE_THRESHOLD = 12
 
 const LANGUAGE_OPTIONS: { label: string; id: Language }[] = [
   { label: 'en', id: 'en' },
@@ -169,6 +180,43 @@ export function Header() {
   const dropdownRef = useRef<HTMLDivElement>(null)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [gradientKey, setGradientKey] = useState(0)
+  const [isHidden, setIsHidden] = useState(false)
+  const lastScrollY = useRef(0)
+  const { scrollY } = useScroll()
+
+  // Hide on scroll down, reveal on scroll up. Movement is measured from the
+  // last position where the header toggled, so a slow scroll still adds up to
+  // the threshold instead of each small step being ignored on its own.
+  useMotionValueEvent(scrollY, 'change', (y) => {
+    const headerHeight = headerRef.current?.offsetHeight ?? 64
+    if (y <= headerHeight) {
+      setIsHidden(false)
+      lastScrollY.current = y
+      return
+    }
+    // iOS rubber-band overscroll past the bottom reports a scroll back up as
+    // it springs into place — ignore it, or reaching the end of the page would
+    // flash the header back in.
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight
+    if (y > maxScroll) return
+
+    const delta = y - lastScrollY.current
+    if (Math.abs(delta) < SCROLL_TOGGLE_THRESHOLD) return
+    setIsHidden(delta > 0)
+    lastScrollY.current = y
+  })
+
+  const isHeaderHidden = isHidden && !isMenuOpen
+
+  // Sticky elements that stack under the header (the per-post mountain hero)
+  // read this, so they slide up into the header's space while it's hidden
+  // instead of leaving a header-sized gap at the top of the screen.
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      '--site-header-offset',
+      isHeaderHidden ? '0px' : 'var(--site-header-height, 0px)',
+    )
+  }, [isHeaderHidden])
 
   useEffect(() => {
     const el = headerRef.current
@@ -228,7 +276,12 @@ export function Header() {
   return (
     <header
       ref={headerRef}
-      className="sticky top-0 z-40 w-full border-b border-white/10 bg-[#355c70]/90 backdrop-blur-xl dark:border-zinc-800 dark:bg-zinc-950/90"
+      // Keyboard users tabbing into a hidden header need to see where focus went.
+      onFocusCapture={() => setIsHidden(false)}
+      className={cn(
+        'sticky top-0 z-40 w-full border-b border-white/10 bg-[#355c70]/90 backdrop-blur-xl transition-transform duration-300 ease-out motion-reduce:transition-none dark:border-zinc-800 dark:bg-zinc-950/90',
+        isHeaderHidden && '-translate-y-full',
+      )}
     >
       <div className="mx-auto flex h-16 w-full max-w-4xl items-center justify-between gap-2 px-4 sm:gap-4 sm:px-6 md:px-12">
         {/* Logo */}

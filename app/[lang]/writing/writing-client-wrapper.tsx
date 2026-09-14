@@ -39,8 +39,14 @@ function MinimalMountainHero({ title }: { title: string }) {
 
   return (
     <motion.div
-      style={{ height, opacity, top: 'var(--site-header-height, 0px)' }}
-      className="sticky z-30 w-full overflow-hidden backdrop-blur-xl"
+      // `--site-header-offset` drops to 0 while the header is scrolled away
+      // (see header.tsx); the transition matches the header's own slide.
+      style={{
+        height,
+        opacity,
+        top: 'var(--site-header-offset, var(--site-header-height, 0px))',
+      }}
+      className="sticky z-30 w-full overflow-hidden backdrop-blur-xl transition-[top] duration-300 ease-out motion-reduce:transition-none"
     >
       <div className="relative mx-auto flex h-full w-full max-w-4xl flex-col items-center px-4 pt-16">
         {/* Atmospheric Glow (Matching MountainEntrance) */}
@@ -82,7 +88,6 @@ function MinimalMountainHero({ title }: { title: string }) {
           {/* Pine silhouettes, shared with the mountain entrance */}
           <PineForest
             band="near"
-            idPrefix="writing"
             className="absolute bottom-0 left-0 w-full fill-[#3a5a78]/45 dark:fill-[#101d2c]/60"
           />
         </div>
